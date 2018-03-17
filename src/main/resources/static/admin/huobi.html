@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>享来介后台管理系统</title>
+</head>
+<style type="text/css">
+
+div
+{
+	font-family : 微软雅黑,宋体;
+	font-size : 1.1em;
+	color : #FFFFFF;
+}
+input
+{
+	color : #000011;
+}
+</style>
+<body>
+	<div style="position:fixed;top:200px;left:700px;width:200px;height:200px;">
+		
+		<div style="margin-top:10px" >
+			一档货币数:<br>
+			<input type="text"  id="yidangohuobi" placeholder="一档货币数">
+			<br>
+		</div>
+		<br>
+		<div style="margin-top:10px" class="fitem">
+			二档货币数:<br>
+			<input type="text" id="erdangohuobi" placeholder="二档货币数">
+			<br>
+		</div>
+		<br>
+		<div style="margin-top:10px" class="fitem">
+			三档货币数:<br>
+			<input type="text" id="sandangohuobi" placeholder="三档货币数">
+			<br>
+		</div>
+		<br>
+		<div >
+			<br>
+			 <input type="submit" id = "enter" value="确认更改 ">		
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+var adminj;
+var admin;
+adminj = $.session.get('admin');
+admin = $.parseJSON( adminj );
+$("#enter").click(function(){
+	var yidangohuobi = $("#yidangohuobi").val();  
+	var erdangohuobi = $("#erdangohuobi").val();
+	var sandangohuobi = $("#sandangohuobi").val(); 
+	if((yidangohuobi!=null||yidangohuobi.equals(""))||(erdangohuobi!=null||erdangohuobi.equals(""))||(sandangohuobi!=null||sandangohuobi.equals(""))){
+		$.ajax({
+			url:'/updatahoubi',
+			type:'post',
+			dataType:'json',
+			data:{'aname':admin.aname,'yidangohuobi':yidangohuobi,'erdangohuobi':erdangohuobi,'sandangohuobi':sandangohuobi},
+			success:function(data){
+				if(data){
+					alert("编辑成功!");
+				}else{
+					alert("编辑失败!");
+				}
+			}
+		});
+	}
+});
+</script>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Head -->
+<head>
+
+	<title>登录表单</title>
+
+	<!-- Meta-Tags -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- //Meta-Tags -->
+
+	<!-- Style --> <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+
+
+
+</head>
+<!-- //Head -->
+
+<!-- Body -->
+<body>
+
+	<h1>享来介后台管理系统</h1>
+
+	<div class="container w3layouts agileits" style="width:500px;heigt:800px;">
+		<div >
+						<h2>商家入驻</h2>
+						<div >
+							<label >登录账号</label>
+							<input type="text"  id="code" placeholder="登录账号" autocomplete="off">
+						</div>
+						<div >
+							<label >登录密码</label>
+							<input type="password" id="password" placeholder="登录密码" autocomplete="off">
+						</div>
+						<div >
+							<label >商家名称</label>
+							<input type="text"  id="bname" placeholder="商家名称" autocomplete="off">
+						</div>
+						<div >
+							<label >QQ</label>
+							<input type="text"  id="QQ" placeholder="QQ" autocomplete="off">
+						</div>
+						<div >
+							<label  >最高可借款金额</label>
+							<input type="text" id="amount" placeholder="最高可借款金额" autocomplete="off">
+						</div>
+						<div >
+							<label >商家借款周期</label>
+							<input type="text"  id="period" placeholder="商家借款周期" autocomplete="off">
+						</div>
+						<div >
+							<label  >用户申请借款的资格</label>
+							<input type="text" id="qualification" placeholder="用户申请借款的资格" autocomplete="off">
+						</div>
+						<div >
+							<label >用户申请借款所需的材料</label>
+							<input type="text"  id="materials" placeholder="用户申请借款所需的材料" autocomplete="off">
+						</div>
+						<div >
+							<label  >注意事项</label>
+							<input type="text" id="matters" placeholder="注意事项" autocomplete="off">
+						</div>
+						<!-- <div >
+						<select name="dangshu" id="dangshu" style="width:200px;height:50px">
+							<option value="1" selected=""  disabled="">请选择申请档数</option>
+							<option value="2">一档</option>
+							<option value="3">二档</option>
+							<option value="4">三档</option>
+						</select>
+						</div>
+						 -->
+						<div></br></div>
+						<div class="send-button w3layouts agileits">
+						<input type="submit" value="商家入驻" id = "ruzhu">
+						</div>
+				</div>
+		</div>
+		
+
+		<div class="clear"></div>
+
+	</div>
+
+	<div class="footer w3layouts agileits">
+		<p>Copyright &copy; 百家介-2017 </p>
+	</div>
+</body>
+<script src ="../js/jquery-3.1.0.min.js" ></script>
+<script type="text/javascript" src = "../js/jquerysession.js"></script>
+<script type="text/javascript">
+var dangshu;
+var dangshuindex;
+
+$("#dangshu").on("change",function(){
+	var opt = $(this).find("option:selected");
+	opt.attr("selected",true);
+	dangshu=document.getElementById("dangshu");
+	dangshuindex=dangshu.selectedIndex;
+	
+	});
+$("#ruzhu").click(function(){
+	$.ajax({
+		url:'/ruzhu',
+		type:'post',
+		dataType:'json',
+		data:{'code':$('#code').val(),'password':$('#password').val(),'bname':$('#bname').val(),
+			'QQ':$('#QQ').val(),'amount':$('#amount').val(),'period':$('#period').val(),
+			'qualification':$('#qualification').val(),'materials':$('#materials').val(),
+			'matters':$('#matters').val()},//, 'dangshu':dangshu.options[dangshuindex].text
+		success:function(data){
+			if(data.state){
+				alert("注册成功");
+				window.location.href = "/index.html";
+			}else{
+				alert("注册失败");
+				window.location.href="/index.html";
+			}
+		}
+	});
+});
+</script>
+</html>
+

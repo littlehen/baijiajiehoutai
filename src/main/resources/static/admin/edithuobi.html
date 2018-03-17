@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>享来介后台管理系统</title>
+
+<script type="text/javascript" src="/../js/jquery.min.js"></script>
+<script type="text/javascript" src = "/../js/jquerysession.js"></script>
+<script type="text/javascript" src="/../js/jquery.easyui.min.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/../js/themes/default/easyui.css">
+<link rel="stylesheet" href="/../js/themes/icon.css" />
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/index.css" rel="stylesheet">
+<link href="../css.style.css" rel="stylesheet">
+<script type="text/javascript" src="/../js/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div class= "container-fluid">
+		<div class="row">
+		<div  class="col-sm-12 col-md-12 main">
+<table id="dg" class="easyui-datagrid" style="width:auto;height:auto"
+	         url="/Searchshen"
+	         toolbar="#toolbar"
+	         rownumbers="true" fitColumns="true" singleSelect="true" checkOnSelect="true"
+	         pagination="true">
+	         <thead>
+	         	<tr>
+	         		<th field="ck" checkbox="true"></th>
+	         		<th field="code" width="50">帐号</th>
+	         		<th field="name" width="50">商家</th>
+	         		<th field="amount" width="50">借款额度</th>
+	         		<th hidden="hidden" field="materials" width="50">借款所需材料</th>
+	         		<th hidden="hidden" field="matters" width="50">注意事项</th>
+	         		<th hidden="hidden" field="period" width="50">借款周期</th>
+	         		<th hidden="hidden" field="qualification" width="50">申请资格</th>
+	         		<th field="qq" width="50">qq</th>
+	         		<th field="shenhestate" width="50">审核状态</th>
+	         	</tr>
+	         </thead>
+	         <div id="toolbar">
+	         	<div>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUserBusiness()">发放货币</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUserBusiness()">刷新</a>
+	         	</div>
+	         	<div>
+	         		<span>商家账号</span>
+	         		<input id = "code" style="line-height:26px;border:1px solid #ccc">
+	         		<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onClick="doSearch()">商家查找</a>
+	         	</div>
+	         </div>	
+	</table>
+	
+	<div id="dlg" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+	closed="true" buttons="#dlg-buttons">
+		<div class="ftitle"> 商家信息</div>
+		<form id="fm" method="post" novalidate>
+			<div style="margin-top:10px" class="fitem">
+				<lable style="width:300px;float:left;text-align:right;">商家:</lable>
+				<input style="width:200px" name="name" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px" class="fitem">
+				<lable style="width:300px;float:left;text-align:right;">账号:</lable>
+				<input style="width:200px" name="code" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">最高额度:</lable>
+				<input style="width:200px" name="amount" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">所需材料:</lable>
+				<input style="width:200px"  name="materials" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">注意事项:</lable>
+				<input style="width:200px" name="matters" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">借款周期:</lable>
+				<input style="width:200px" name="period" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">申请资格:</lable>
+				<input style="width:200px" name="qualification" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">QQ:</lable>
+				<input style="width:200px" name="qq" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">审核状态:</lable>
+				<input style="width:200px" name="shenhestate" id="shenhestate" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">货币数:</lable>
+				<input style="width:200px" name="ohuobi" id="ohuobi" class="easyui-validatebox" required="true">
+			</div>
+		</form>
+		<div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton" onclick="saveBusiness()">确定</a>
+			<a href="#" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+		</div> 
+	</div>
+	</div>
+	</div>
+	</div>
+</body>
+
+<script >
+
+
+
+	var url;
+	function doSearch(){
+		$('#dg').datagrid('load',{
+			code:$('#code').val(),
+		});
+	}
+	
+	function editUserBusiness(){
+		var adminj;
+		var admin;
+		adminj = $.session.get('admin');
+		admin = $.parseJSON( adminj );
+		var row = $('#dg').datagrid('getSelected');
+		if(row){
+			$('#dlg').dialog('open').dialog('setTitle','商家信息');
+			$('#fm').form('load',row);
+			url='/edithuobi/'+admin.aname;
+		}
+	
+	}
+	
+	function saveBusiness(){
+		$('#fm').form('submit',{
+			url:url,
+			onSubmit:function(){
+				return $(this).form('validate');
+			},
+			success: function(result){	
+				var result1 = eval('('+result+')');
+					if(result1.state=="货币发放成功")
+						alert("货币发放成功");
+					if(result1.state=="货币发放失败")
+						alert("货币发放失败");
+				
+			}
+		});
+	}
+</script>
+</html>

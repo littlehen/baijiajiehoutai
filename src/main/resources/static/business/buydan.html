@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>享来介后台管理系统</title>
+
+<script type="text/javascript" src="/../js/jquery.min.js"></script>
+<script type="text/javascript" src = "/../js/jquerysession.js"></script>
+<script type="text/javascript" src="/../js/jquery.easyui.min.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/../js/themes/default/easyui.css">
+<link rel="stylesheet" href="/../js/themes/icon.css" />
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/index.css" rel="stylesheet">
+<link href="../css.style.css" rel="stylesheet">
+<script type="text/javascript" src="/../js/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<h1><font face="verdana">温馨提示：一个货币查看一个用户</font></h1>
+<div class= "container-fluid">
+		<div class="row">
+		<div  class="col-sm-12 col-md-12 main">
+<table id="dg" class="easyui-datagrid" style="width:auto;height:auto"
+	         toolbar="#toolbar"
+	         rownumbers="true" fitColumns="true" singleSelect="true" checkOnSelect="true"
+	         pagination="true" >
+	         <thead>
+	         	<tr>
+	         		<th field="ck" checkbox="true"></th>
+	         		<th field="phone" width="50">手机号</th>
+	         		<th field="name" width="50">名字</th>
+	         		<th field="address" width="50">地址</th>
+	         		<th field="age" width="50">年龄</th>
+	         		<th field="edu" width="50">借款额度</th>
+	         		<th field="fuzhai" width="50">负债</th>
+	         		<th field="huabei" width="50">是否有花呗</th>
+	         		<th field="jiedaibao" width="50">是否有借贷宝</th>        		
+	         		<th field="qq" width="50">QQ</th>
+	         		<th field="zhima" width="50">芝麻信用分</th>
+	         	</tr>
+	         </thead>
+	         <div id="toolbar">
+		         <div>
+		         	<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
+		         </div>
+	         	<div>
+	         		<span>手机号码</span>
+	         		<input id = "phone" style="line-height:26px;border:1px solid #ccc">
+	         		<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onClick="doSearch()">用户查找</a>
+	         	</div>
+	         </div>	
+	</table>
+	
+	<div id="dlg" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+	closed="true" buttons="#dlg-buttons">
+		<form id="fm" method="post" novalidate>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">用户姓名:</lable>
+				<input style="width:200px" name="name" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">手机号:</lable>
+				<input style="width:200px" name="phone" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">地址:</lable>
+				<input style="width:200px" name="address" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">年龄:</lable>
+				<input style="width:200px" name="age" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;" >负债:</lable>
+				<input style="width:200px"  name="fuzhai" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;" >是否有花呗:</lable>
+				<input style="width:200px;float:center"  name="huabei" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">是否有借贷宝:</lable>
+				<input style="width:200px"  name="jiedaibao" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">借款额度:</lable>
+				<input style="width:200px" name="edu" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">QQ:</lable>
+				<input style="width:200px" name="qq" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">芝麻信用:</lable>
+				<input style="width:200px" name="zhima" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			
+		</form>
+		<div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg').dialog('close')">确定</a>
+		</div> 
+	</div>
+	</div>
+	</div>
+	</div>
+
+    
+</body>
+
+
+<script >
+var businessj;
+var business;
+businessj = $.session.get('business');
+business = $.parseJSON( businessj );
+
+$(function(){
+		
+		$('#dg').datagrid({
+			url:"/finddanuser",
+			queryParams: {
+				code:business.code,
+			}
+		});
+	
+});		
+
+	
+	var url;
+	function doSearch(){
+		$('#dg').datagrid({
+         url:'/dan/phone/'+$('#phone').val(),
+         queryParams: {
+				code:business.code,
+			}
+         
+     });
+	}
+	
+	
+	function reloadUser(){
+		$('#dg').datagrid({
+			url:"/finddanuser",
+			queryParams: {
+				code:business.code,
+			}
+		});
+	}
+</script>
+</html>

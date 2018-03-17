@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>享来介后台管理系统</title>
+
+<script type="text/javascript" src="/../js/jquery.min.js"></script>
+<script type="text/javascript" src = "/../js/jquerysession.js"></script>
+<script type="text/javascript" src="/../js/jquery.easyui.min.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/../js/themes/default/easyui.css">
+<link rel="stylesheet" href="/../js/themes/icon.css" />
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/index.css" rel="stylesheet">
+<link href="../css.style.css" rel="stylesheet">
+<script type="text/javascript" src="/../js/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div class= "container-fluid">
+		<div class="row">
+		<div  class="col-sm-12 col-md-12 main">
+<table id="dg" class="easyui-datagrid" style="width:auto;height:auto"
+	         toolbar="#toolbar"
+	         rownumbers="true" fitColumns="true" singleSelect="true" checkOnSelect="true"
+	         pagination="true" >
+	         <thead>
+	         	<tr>
+	         		<th field="ck" checkbox="true"></th>
+	         		<th field="phone" width="50">手机号</th>
+	         		<th field="name" width="50">名字</th>
+	         		<th field="address" width="50">地址</th>
+	         		<th field="age" width="50">年龄</th>
+	         		<th field="edu" width="50">借款额度</th>
+	         		<th field="fuzhai" width="50">负债</th>
+	         		<th field="huabei" width="50">是否有花呗</th>
+	         		<th field="jiedaibao" width="50">是否有借贷宝</th>
+	         		<th field="password" width="50" >密码</th>
+	         		<!-- <th field="photo" width="50" >身份证照片</th>	 -->         		
+	         		<th field="qq" width="50">QQ</th>
+	         		<!--<th field="qrcode" width="50">微信二维码</th> -->
+	         		<th field="shenhestate" width="50">审核状态</th>
+	         		<th field="zhima" width="50">芝麻信用分</th>
+	         	</tr>
+	         </thead>
+	         <div id="toolbar">
+	         	<div>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">审核</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
+	         	</div>
+	         	<div>
+	         		<span>手机号码</span>
+	         		<input id = "phone" style="line-height:26px;border:1px solid #ccc">
+	         		<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onClick="doSearch()">用户查找</a>
+	         	</div>
+	         </div>	
+	</table>
+	
+	<div id="dlg" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+	closed="true" buttons="#dlg-buttons">
+		<div class="ftitle"> 用户信息</div>
+		<form id="fm" method="post" novalidate>
+			<div style="margin-top:10px" class="fitem">
+				<lable style="width:300px;float:left;text-align:right;">用户姓名:</lable>
+				<input style="width:200px" name="name" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px" class="fitem">
+				<lable style="width:300px;float:left;text-align:right;">手机号:</lable>
+				<input style="width:200px" name="phone" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">地址:</lable>
+				<input style="width:200px" name="address" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">年龄:</lable>
+				<input style="width:200px" name="age" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;" >负债:</lable>
+				<input style="width:200px"  name="fuzhai" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;" >是否有花呗:</lable>
+				<input style="width:200px;float:center"  name="huabei" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">是否有借贷宝:</lable>
+				<input style="width:200px"  name="jiedaibao" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">密码:</lable>
+				<input style="width:200px" name="password" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			
+			<div style="display:none;">
+				<lable style="width:300px;float:left;text-align:right;">照片:</lable>
+				<input style="width:200px" name="photo" class="easyui-validatebox" required="true" >
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">借款额度:</lable>
+				<input style="width:200px" name="edu" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">QQ:</lable>
+				<input style="width:200px" name="qq" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="display:none;">
+				<lable style="width:300px;float:left;text-align:right;">二维码:</lable>
+				<input style="width:200px" name="qrcode" class="easyui-validatebox" required="true">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">芝麻信用:</lable>
+				<input style="width:200px" name="zhima" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">审核状态:</lable>
+				<input style="width:200px" name="shenhestate" id="shenhestate" class="easyui-validatebox" required="true">
+			</div>
+			<div style="margin-top:10px;float:left; display:inline" >
+				<span >照片</span>
+				<img src="" id="zhaopian" width="300" height="300" />
+			</div>
+			<div style="margin-top:10px;float:left; display:inline">
+				<span >二维码</span>
+				<img src="" id="erweima" width="300" height="300"  />
+			</div>
+			<div style="margin-top:10px">
+				<select  id="sfjdb">
+				  <option value="1" >审核进行中</option>
+				  <option value="2">审核通过</option>
+				  <option value="3">审核不通过</option>
+				</select>
+			</div>
+		</form>
+		<div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton"  onclick="saveUser()">确定</a>
+			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg').dialog('close')">取消</a>
+		</div> 
+	</div>
+	</div>
+	</div>
+	</div>
+
+    
+</body>
+
+
+<script >
+var adminj;
+var admin;
+adminj = $.session.get('admin');
+admin = $.parseJSON( adminj );
+
+$(function(){
+		
+		$('#dg').datagrid({
+			url:"/userlist",
+			queryParams: {
+				admin:admin.aname
+			}
+		});
+	
+});		
+
+	
+	var url;
+	function doSearch(){
+		$('#dg').datagrid({
+         url:'/user/phone/'+$('#phone').val()
+         
+     });
+	}
+	
+	function destroyUser(){
+		var selRow = $('#dg').datagrid("getSelections");
+		
+		if(selRow.length == 0){
+			alert("请至少选择一行");
+			return false;
+		}
+		
+		var p = selRow[0].phone;
+		for(var i = 1; i < selRow.length;i++){
+			p += ',' + selRow[i].phone;
+		}
+		if(selRow){
+			$.messager.confirm('Confirm','Are you sure you want to destroy this User?',function(r){
+				if(r){
+					//$.post('/delete?id='+a,function(result){
+					$.post('/deleteUser?phone='+ p,function(result){
+						if (result){
+							$('#dg').datagrid('reload');	// reload the user data
+							alert("success");
+						} else {
+							alert("error");
+						}
+					},'json');
+				}
+			});
+		}
+	}
+	
+		
+	function editUser(){
+		var row = $('#dg').datagrid('getSelected');
+		$d = document.querySelector('#zhaopian'),	
+	    $d.setAttribute("src", "/image/"+row.photo);
+		$c = document.querySelector('#erweima'),	
+	    $c.setAttribute("src", "/image/"+row.qrcode);
+		if(row){
+			$('#dlg').dialog('open').dialog('setTitle','用户信息');
+			$('#fm').form('load',row);
+			url='/editUser';
+		}
+	
+	}
+	function saveUser(){
+		$('#shenhestate').val($("#sfjdb").find("option:selected").text());
+		$('#fm').form('submit',{
+			url:url,
+			onSubmit:function(){
+				return $(this).form('validate');
+			},
+			success: function(result){
+				//var result = eval('('+result+')');
+				if (result){
+					$('#dlg').dialog('close');		// close the dialog
+					$('#dg').datagrid('reload');	// reload the user data
+				} else {
+					$.messager.show({
+						title: 'Error',
+						msg: result.msg
+					});
+				}
+			}
+		});
+	}
+	
+	function reloadUser(){
+		$('#dg').datagrid({
+			url:"/userlist",
+			queryParams: {
+				admin:admin.aname
+			}
+		});
+	}
+	<!--//图片展示  
+	function showImg(value, row, index){  
+	    if(row.photo){  
+	       return "<img style='width:24px;height:24px;' border='1' src='"+row.phone+"'>";  
+	    }  
+
+	}   -->
+</script>
+</html>

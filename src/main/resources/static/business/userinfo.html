@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>享来介后台管理系统</title>
+
+<script type="text/javascript" src="/../js/jquery.min.js"></script>
+<script type="text/javascript" src = "/../js/jquerysession.js"></script>
+<script type="text/javascript" src="/../js/jquery.easyui.min.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/../js/themes/default/easyui.css">
+<link rel="stylesheet" href="/../js/themes/icon.css" />
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/index.css" rel="stylesheet">
+<link href="../css.style.css" rel="stylesheet">
+<script type="text/javascript" src="/../js/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<h1><font face="verdana">温馨提示：一个货币查看一个用户</font></h1>
+<div class= "container-fluid">
+		<div class="row">
+		<div  class="col-sm-12 col-md-12 main">
+<table id="dg" class="easyui-datagrid" style="width:auto;height:auto"
+	         toolbar="#toolbar"
+	         rownumbers="true" fitColumns="true" singleSelect="true" checkOnSelect="true"
+	         pagination="true" >
+	         <thead>
+	         	<tr>
+	         		<th field="ck" checkbox="true"></th>
+	         		<th field="name" width="50">名字</th>
+	         		<th field="zhima" width="50">芝麻分</th>
+	         		<th field="address" width="50">省份</th>
+	         		<th  hidden="hidden" field="phone"  width="50">手机号码</th>
+	         	
+	         	</tr>
+	         </thead>
+	         <div id="toolbar">
+	         	<div>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">查看该用户信息</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
+	         	</div>
+	         	<div>
+	         		<span>手机号码</span>
+	         		<input id = "phone" style="line-height:26px;border:1px solid #ccc">
+	         		<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onClick="doSearch()">用户查找</a>
+	         	</div>
+	         </div>	
+	</table>
+	
+	<div id="dlg" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+	closed="true" buttons="#dlg-buttons">
+		<form id="fm" method="post" novalidate>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">用户姓名:</lable>
+				<input style="width:200px" name="name" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">手机号:</lable>
+				<input style="width:200px" name="phone" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">地址:</lable>
+				<input style="width:200px" name="address" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">年龄:</lable>
+				<input style="width:200px" name="age" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;" >负债:</lable>
+				<input style="width:200px"  name="fuzhai" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;" >是否有花呗:</lable>
+				<input style="width:200px;float:center"  name="huabei" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">是否有借贷宝:</lable>
+				<input style="width:200px"  name="jiedaibao" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">借款额度:</lable>
+				<input style="width:200px" name="edu" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">QQ:</lable>
+				<input style="width:200px" name="qq" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">芝麻信用:</lable>
+				<input style="width:200px" name="zhima" class="easyui-validatebox" required="true" readonly="readonly">
+			</div>
+			
+		</form>
+		<div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg').dialog('close')">确定</a>
+		</div> 
+	</div>
+	</div>
+	</div>
+	</div>
+
+    
+</body>
+
+
+<script >
+var businessj;
+var business;
+businessj = $.session.get('business');
+business = $.parseJSON( businessj );
+
+$(function(){
+		
+		$('#dg').datagrid({
+			url:"/buserlist",
+			queryParams: {
+				code:business.code,
+			}
+		});
+	
+});		
+
+	
+	var url;
+	function doSearch(){
+		$('#dg').datagrid({
+         url:'/user/phone/'+$('#phone').val()
+         
+     });
+	}
+	
+	function destroyUser(){
+		var selRow = $('#dg').datagrid("getSelections");
+		
+		if(selRow.length == 0){
+			alert("请至少选择一行");
+			return false;
+		}
+		
+		var p = selRow[0].phone;
+		for(var i = 1; i < selRow.length;i++){
+			p += ',' + selRow[i].phone;
+		}
+		if(selRow){
+			$.messager.confirm('Confirm','Are you sure you want to destroy this User?',function(r){
+				if(r){
+					//$.post('/delete?id='+a,function(result){
+					$.post('/deleteUser?phone='+ p,function(result){
+						if (result){
+							$('#dg').datagrid('reload');	// reload the user data
+							alert("success");
+						} else {
+							alert("error");
+						}
+					},'json');
+				}
+			});
+		}
+	}
+		
+	function editUser(){
+		var row1 = $('#dg').datagrid('getSelected');
+		a = row1.phone;
+		$.ajax({
+			url:'/ifhuobi',
+			type:'post',
+			dataType:'json',
+			data:{'code':business.code,'phone':a},
+			success:function(data){
+				if(data.state == 1){
+					alert("购买成功！");
+					<!--$.messager.confirm('温馨提示','此操作将使用一个币，确定购买此用户吗?',function(r){-->
+					<!--if (r){-->
+					<!--}-->
+					<!--}); -->
+					    
+					    	var row = $('#dg').datagrid('getSelected');
+							if(row){
+								$('#dlg').dialog('open').dialog('setTitle','用户信息');
+								$('#fm').form('load',row);	
+							}
+					   
+					
+				}else if(data.state == 0){
+					alert("货币不足!");
+				}else if(data.state == 2){
+					alert("已经购买过此用户!");
+				}
+			}
+		});
+	}
+	
+	function reloadUser(){
+		$('#dg').datagrid({
+			url:"/buserlist",
+			queryParams: {
+				code:business.code,
+			}
+		});
+	}
+	<!--//图片展示  
+	function showImg(value, row, index){  
+	    if(row.photo){  
+	       return "<img style='width:24px;height:24px;' border='1' src='"+row.phone+"'>";  
+	    }  
+
+	}   -->
+</script>
+</html>

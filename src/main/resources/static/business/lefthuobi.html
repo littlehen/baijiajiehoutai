@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>享来介后台管理系统</title>
+</head>
+<style type="text/css">
+
+div
+{
+	font-family : 微软雅黑,宋体;
+	font-size : 1.1em;
+	color : #FFFFFF;
+}
+input
+{
+	color : #000011;
+}
+</style>
+<body>
+	<div style="position:fixed;top:200px;left:700px;width:200px;height:200px;">
+		
+		<div style="margin-top:10px" >
+			当前套餐货币数:
+			<span id='huobi'></span>
+			<br>
+			<br>
+			套餐剩余货币数:
+			<span id='lefthuobi'></span>
+		</div>
+		
+	</div>
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+	var businessj;
+	var business;
+	businessj = $.session.get('business');
+	business = $.parseJSON( businessj );
+	
+    $.ajax({
+    url : "/findhuobivalue",//请求地址
+    dataType : "json",//数据格式 
+    type : "post",//请求方式
+    data:{'code':business.code},
+    success : function(data) {   //如何发送成功
+    	 $("#lefthuobi").text(data.lefthuobi); 
+    	 $("#huobi").text(data.huobi); 
+       }
+})
+})
+</script>
+</html>
