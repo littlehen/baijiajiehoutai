@@ -3,50 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>享来介后台管理系统</title>
-<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/adminlte.css" rel="stylesheet"  media="all">
 <link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/index.css" rel="stylesheet">
-<link href="../css.style.css" rel="stylesheet">
+<link href="../css/admin.css" rel="stylesheet"  media="all">
 </head>
 
 
-<body>
-	   <div class="modal fade" id="myModal">
-	      <div class="modal-dialog">
-	        <div class="modal-content">
-	          <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	          </div>
-	          <div class="modal-body">
-	            <p style="color:#000000;">正在审核中，请耐心等待！</p>
-	          </div>
-	          <div class="modal-footer">
-	          </div>
-	        </div><!-- /.modal-content -->
-	      </div><!-- /.modal-dialog -->
-	   </div><!-- /.modal -->
-	    <div class="modal fade" id="myModal1">
-	      <div class="modal-dialog">
-	        <div class="modal-content">
-	          <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	          </div>
-	          <div class="modal-body">
-	            <p style="color:#000000;">审核没有通过，请确认您填写的信息是否正确！</p>
-	          </div>
-	          <div class="modal-footer">
-	          </div>
-	        </div><!-- /.modal-content -->
-	      </div><!-- /.modal-dialog -->
-	    </div><!-- /.modal -->
-	<!--顶部菜单  -->
-	<nav class="navbar navbar-inverse navbar-static-top" role="navigation"> 
-		<div class="container">
-		    <div class="navbar-header">
-		        <a class="navbar-brand" href="#">享来介后台管理系统</a>
-		    </div>
-		    <div class="collapse navbar-collapse" >
-		        <ul class="nav navbar-nav navbar-right">
+<body class="skin-blue sidebar-mini sidebar-collapse" style="">
+	   <div class="wrapper" style="background: transparent;">
+
+			<div class="dividert" style="background: -webkit-gradient(linear,left top,left bottom,from(#95B5D6),to(#819CB7));">
+
+				<div class="img"></div>
+				<ul class="nav navbar-nav navbar-right">
 		            <li ><a href="#">个人中心</a></li>
 		            <li><a href="#" >消息</a></li>
 		            <li class="dropdown">
@@ -60,62 +29,39 @@
 		                </ul>
 		            </li>
 		        </ul>
-   			 </div>
-	    </div>
-	</nav>
-	<div class= "container-fluid">
-		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-		<!--	<div class="panel-group" id="accordion">  -->
-				<ul class="nav nav-sidebar">
-						<li >
-							<a href="#business" class="nav-header menu-first collapsed" data-toggle="collapse"><span><h3>商家特权</h3></span></a>
-						</li>
-						<ul id ="business" class="nav nav-list collapse menu-second" onclick="userPass()">
-							<li><a href="#"><span><i class ="fa fa-user"></i>查看用户</span></a></li>
-						</ul>
-						
-						<li >
-							<a href="#" class="nav-header menu-first collapsed" onclick="finduser()"><span><h3>查看已购用户</h3></span></a>
-						</li>
-						
-						<li >
-							<a href="#" class="nav-header menu-first collapsed" onclick="findhuobi()"><span><h3>查看剩余货币</h3></span></a>
-						</li>
-						
-					
-					<!-- 	
-						<div class="panel-heading panel">
-	      						<a data-toggle="collapse" data-parent="#accordion" href="#item-cangku" class="side-nav-item item-title">
-	     							<h4> 商家管理</h4>
-	      						</a>
-	      					<div id="item-cangku" class="panel-collapse collapse in">
-	        				<div class="item-body">
-	         					 <ul class="list-unstyled">
-	            					<li class="item-second"><a href="">商家审核</a></li>
-	            					<li class="item-second"><a href="">增加商家</a></li>
-	          					</ul>
-	        				</div>
-	      					</div>
-	   				 </div>
-	   				 -->
-				</ul>
+
 			</div>
-	
-		<!--  	</div>  -->
-			<div  class="col-sm-9 col-md-10main">
-				<h1 class="page-header"><i class="fa fa-cog fa-spin"></i>&nbsp;控制台<small>&nbsp;&nbsp;&nbsp;欢迎使用享来介后台管理系统</small></h1>
-				<div id="content">
+			<div class="content-wrapper" style="min-height: 880px; margin-left: 0px !important;">
+				<ul class="sub_menu" id="sub_menuko" type="base" style="height: 880px;">
+					<li data-id="1" class="treeview ">
+								<a data-close-others="true"> 商家特权 </a>
+								<div class="img_biao"></div>
+								<ul>
+									<li>
+												<a href="#"  onclick="userPass()">查看用户</a>
+											</li><li>
+												<a href="#" onclick="finduser()">查看已购用户</a>
+											</li>	
+											<li><a href="#" onclick="findhuobi()">查看剩余货币</a> </li>							</ul>
+							</li>
+								
+				</ul>
+				<div id="content" style="padding:10px; padding-right: 50px; padding-left:0;padding-bottom:10px; left: 280px;position:absolute;right: 0;bottom: 0;top: 98px; overflow: auto">
+
 					
 				</div>
+
 			</div>
-		</div>
+			<!-- /.content-wrapper -->
+	
 	</div>
-	<nav class="navbar nav-default navbar-fixed-bottom">
-		<div class="footer w3layouts agileits">
-			<p>Copyright &copy; 享来介-2017 </p>
-		</div>
-	</nav>
+	
+		<nav class="navbar nav-default navbar-fixed-bottom">
+					<div class="footer w3layouts agileits">
+						<p>Copyright &copy; 享来介-2018 </p>
+					</div>
+			</nav>
+	
 	
 	
 	
