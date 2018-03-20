@@ -16,7 +16,11 @@ import com.example.demo.model.User;
 public interface BusinessDao extends CrudRepository<Business,String>{
 	Page<Business> findAll(Pageable pageable);
 	
+	List<Business> findAll();
+	
 	Page<Business> findByQq(String qq,Pageable pageable);
+	
+	List<Business>  findByQq(String qq);
 
 	Business findByCode(String code);
 

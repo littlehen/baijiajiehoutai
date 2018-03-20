@@ -6,7 +6,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>baijiajiehoutai</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>baijiajiehoutai</name>
 	<description>Demo project for Spring Boot</description>
@@ -36,8 +36,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		<!-- 排除内置容器，排除内置容器导出成war包可以让外部容器运行spring-boot项目  
+            <exclusions>  
+                <exclusion>  
+                    <groupId>org.springframework.boot</groupId>  
+                    <artifactId>spring-boot-starter-tomcat</artifactId>  
+                </exclusion>  
+            </exclusions>  
 		</dependency>
-
+		 <dependency>  
+            <groupId>javax.servlet</groupId>  
+            <artifactId>javax.servlet-api</artifactId>   -->
+        </dependency>  
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -48,6 +58,23 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+				<!-- POI -->    
+		<dependency>    
+		    <groupId>org.apache.poi</groupId>    
+		    <artifactId>poi</artifactId>    
+		    <version>3.8</version>    
+		    <exclusions>    
+		        <exclusion>    
+		            <artifactId>commons-codec</artifactId>    
+		            <groupId>commons-codec</groupId>    
+		        </exclusion>    
+		    </exclusions>    
+		</dependency>    
+		<dependency>    
+		    <groupId>org.apache.poi</groupId>    
+		    <artifactId>poi-ooxml</artifactId>    
+		    <version>3.8</version>    
+		</dependency>    
 	</dependencies>
 
 	<build>

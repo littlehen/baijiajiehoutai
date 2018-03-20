@@ -47,6 +47,7 @@
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">审核</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-save"  plain="true" onclick="exportUser()">导出为excel</a>
 	         	</div>
 	         	<div>
 	         		<span>手机号码</span>
@@ -138,6 +139,8 @@
 			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg').dialog('close')">取消</a>
 		</div> 
 	</div>
+	
+	  
 	</div>
 	</div>
 	</div>
@@ -252,5 +255,9 @@ $(function(){
 	    }  
 
 	}   -->
+	
+	function exportUser(){
+		location.href="/exportUser";
+	}
 </script>
 </html>

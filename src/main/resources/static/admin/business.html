@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>享来介后台管理系统</title>
 
+
 <script type="text/javascript" src="/../js/jquery.min.js"></script>
 <script type="text/javascript" src = "/../js/jquerysession.js"></script>
 <script type="text/javascript" src="/../js/jquery.easyui.min.js" charset="UTF-8"></script>
@@ -14,6 +15,7 @@
 <link href="../css/index.css" rel="stylesheet">
 <link href="../css.style.css" rel="stylesheet">
 <script type="text/javascript" src="/../js/locale/easyui-lang-zh_CN.js"></script>
+
 </head>
 <body>
 <div class= "container-fluid">
@@ -43,6 +45,7 @@
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyBusiness()">删除</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUserBusiness()">审核</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUserBusiness()">刷新</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-save" onclick="exportBus()">导出为excel</a>
 	         	</div>
 	         	<div>
 	         		<span>QQ</span>
@@ -105,15 +108,15 @@
 			<a href="#" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 		</div> 
 	</div>
+	
+	
 	</div>
 	</div>
 	</div>
 </body>
 
+
 <script >
-
-
-
 	var url;
 	function doSearch(){
 		$('#dg').datagrid('load',{
@@ -195,6 +198,10 @@
 				}
 			}
 		});
+	}
+	
+	 function exportBus(){
+		location.href="/exportBus";
 	}
 </script>
 </html>

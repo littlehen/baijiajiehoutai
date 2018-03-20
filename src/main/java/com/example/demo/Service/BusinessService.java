@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +30,9 @@ public class BusinessService {
 	
 	@Autowired
 	UserDao userDao;
+	
+	
+	List<Business> Businesslist = new ArrayList<>();
 	
 	public Map<String,Object> businessAll(String qq,Integer rows,Integer page){
 		Map<String,Object> map = new HashMap<>();
@@ -308,5 +312,20 @@ public class BusinessService {
 			map.put("state", "货币发放失败");
 		
 		return map;
+	}
+	
+	
+	public List<Business> businessAl(){
+		Businesslist = businessDao.findAll();
+		return Businesslist;
+	}
+	
+	
+	public List<Business> businessAl(String qq){
+		if("".equals(qq) || qq == null) {
+			Businesslist = businessDao.findAll();
+		}else
+			Businesslist = businessDao.findByQq(qq);
+		return Businesslist;
 	}
 }

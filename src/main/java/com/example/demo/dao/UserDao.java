@@ -11,7 +11,11 @@ import com.example.demo.model.User;
 public interface UserDao extends CrudRepository<User,String>{
 	Page<User> findAll(Pageable pageable);
 	
+	List<User> findAll();
+	
 	Page<User> findByState(Integer state,Pageable pageable);
+	
+	List<User> findByState(Integer state);
 	
 	Page<User> findByPhoneAndState(String phone,Integer state,Pageable pageable);
 

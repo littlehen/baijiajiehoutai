@@ -1,6 +1,8 @@
 package com.example.demo.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class UserService {
 	@Autowired
 	UserDao userDao;
 	
+	
+	List<User> userlist  = new ArrayList<>();
 	public Map<String,Object> userlist(String admin,Integer page,Integer rows){
 		Map<String,Object> map = new HashMap<>();
 		Pageable pageable = new PageRequest(page-1,rows);
@@ -38,6 +42,15 @@ public class UserService {
 	    return map;
 	}
 	
+	
+	public List<User>  userlis(String admin){
+		if(admin == null||"".equals(admin)) {
+			userlist = null;
+		}else
+			userlist = userDao.findAll();
+		return userlist;
+			
+	}
 	
 	public boolean deleteUser(String phone) {
 		String[] p = phone.split(",");
@@ -87,5 +100,14 @@ public class UserService {
 		    map.put("rows",userDao.findByPhone(phone));
 		}		
 		return map;
+	}
+	
+	public List<User> findByPhon(String phone){
+		if(phone == null || "".equals(phone)) {
+			userlist = userDao.findByState(1);
+		}else
+			userlist = userDao.findByPhone(phone);
+		
+		return userlist;
 	}
 }
