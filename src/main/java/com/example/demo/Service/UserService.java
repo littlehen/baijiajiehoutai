@@ -179,13 +179,18 @@ public class UserService {
 						User su = new User();
 						XSSFRow hRow = xSheet.getRow(i);
 						//这里
-						su.setSource(hRow.getCell(0).toString());
-						su.setName(hRow.getCell(1).toString());
-						su.setPhone(hRow.getCell(2).toString());
-						su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
-						//su.setAddress(hRow.getCell(4).toString());
-						su.setShenqingshijian(hRow.getCell(5).toString());System.out.println(su.getSource()+"--------------");
-						
+						if(hRow.getCell(0).toString() != null &&!"".equals(hRow.getCell(0).toString()))
+							su.setSource(hRow.getCell(0).toString());
+						if(hRow.getCell(1).toString() != null &&!"".equals(hRow.getCell(1).toString()))
+							su.setName(hRow.getCell(1).toString());
+						if(hRow.getCell(2).toString() != null &&!"".equals(hRow.getCell(2).toString()))
+							su.setPhone(hRow.getCell(2).toString());
+						if(hRow.getCell(3).toString() != null &&!"".equals(hRow.getCell(3).toString()))
+							su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
+						if(hRow.getCell(4).toString() != null &&!"".equals(hRow.getCell(4).toString()))
+							su.setAddress(hRow.getCell(4).toString());
+						if(hRow.getCell(5).toString() != null &&!"".equals(hRow.getCell(5).toString()))
+							su.setShenqingshijian(hRow.getCell(5).toString());
 						userDao.save(su);
 					}
 			 }
@@ -217,12 +222,18 @@ public class UserService {
 					
 					//这里
 					HSSFRow hRow = hSheet.getRow(i);
-					su.setSource(hRow.getCell(0).toString());
-					su.setName(hRow.getCell(1).toString());
-					su.setPhone(hRow.getCell(2).toString());
-					su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
-			//		su.setAddress(hRow.getCell(4).toString());
-					su.setShenqingshijian(hRow.getCell(5).toString());
+					if(hRow.getCell(0).toString() != null &&!"".equals(hRow.getCell(0).toString()))
+						su.setSource(hRow.getCell(0).toString());
+					if(hRow.getCell(1).toString() != null &&!"".equals(hRow.getCell(1).toString()))
+						su.setName(hRow.getCell(1).toString());
+					if(hRow.getCell(2).toString() != null &&!"".equals(hRow.getCell(2).toString()))
+						su.setPhone(hRow.getCell(2).toString());
+					if(hRow.getCell(3).toString() != null &&!"".equals(hRow.getCell(3).toString()))
+						su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
+					if(hRow.getCell(4).toString() != null &&!"".equals(hRow.getCell(4).toString()))
+						su.setAddress(hRow.getCell(4).toString());
+					if(hRow.getCell(5).toString() != null &&!"".equals(hRow.getCell(5).toString()))
+						su.setShenqingshijian(hRow.getCell(5).toString());
 					userDao.save(su);
 				}
 			}
