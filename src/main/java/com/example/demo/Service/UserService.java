@@ -1,19 +1,40 @@
 package com.example.demo.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.example.demo.dao.UserDao;
 import com.example.demo.model.Administrator;
 import com.example.demo.model.User;
+import com.example.demo.util.ExcelImportUtils;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 
 
 @Service
@@ -109,5 +130,105 @@ public class UserService {
 			userlist = userDao.findByPhone(phone);
 		
 		return userlist;
+	}
+
+
+	public void importFile(MultipartFile mFile, String rootPath) {
+		
+		String filename = mFile.getOriginalFilename();
+		
+		String ym = new SimpleDateFormat("yyyy-MM").format(new Date());
+		String filePath =  filename;
+		try {
+			File file = new File(rootPath+filePath);
+			if(!file.exists()){
+			    //先得到文件的上级目录，并创建上级目录，在创建文件
+			    file.getParentFile().mkdir();
+			    try {
+			        //创建文件
+			        file.createNewFile();
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    }
+			}
+			
+			mFile.transferTo(file);
+			if (ExcelImportUtils.isExcel2003(filename)) {
+				importXls(file);
+			}else if (ExcelImportUtils.isExcel2007(filename)) {
+				importXlsx(file);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	private void importXlsx(File file) {
+		InputStream is = null;
+		XSSFWorkbook xWorkbook = null;
+		try {
+			 is = new FileInputStream(file);
+			 xWorkbook = new XSSFWorkbook(is);
+			 XSSFSheet xSheet = xWorkbook.getSheetAt(0);
+			 
+			 if (null != xSheet) {
+				 for (int i = 1; i < xSheet.getPhysicalNumberOfRows(); i++){  
+						User su = new User();
+						XSSFRow hRow = xSheet.getRow(i);
+						//这里
+						su.setName(hRow.getCell(0).toString());
+						su.setPhone(hRow.getCell(1).toString());
+						userDao.save(su);
+					}
+			 }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(null != is) {
+				try {
+					is.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+
+	private void importXls(File file) {
+		InputStream is = null;
+		HSSFWorkbook hWorkbook = null;
+		
+		try {
+			is = new FileInputStream(file);
+			hWorkbook = new HSSFWorkbook(is);
+			HSSFSheet hSheet = hWorkbook.getSheetAt(0);
+			if(null != hSheet) {
+				for (int i = 1; i < hSheet.getPhysicalNumberOfRows(); i++){  
+					User su = new User();
+					
+					//这里
+					HSSFRow hRow = hSheet.getRow(i);
+					su.setName(hRow.getCell(0).toString());
+					su.setPhone(hRow.getCell(1).toString());
+					userDao.save(su);
+				}
+			}
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(null != is) {
+				try {
+					is.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
 	}
 }

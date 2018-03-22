@@ -22,4 +22,5 @@ public interface UserDao extends CrudRepository<User,String>{
 	List<User> findByPhone(String phone);
 
 	Page<User> findByShenhestate(String string, Pageable pageable);
+
 }

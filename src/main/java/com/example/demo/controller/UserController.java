@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -15,14 +16,19 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Service.UserService;
 import com.example.demo.model.Business;
 import com.example.demo.model.User;
+import com.example.demo.util.ExcelImportUtils;
 
 @RestController
 public class UserController {
@@ -116,6 +122,30 @@ public class UserController {
 	        out.flush();
 	        out.close();
 	     
+	}
+	
+	
+	@RequestMapping("/batchImport")
+	public void batchImport(@RequestParam(value="filename") MultipartFile file,HttpServletRequest request,
+			HttpServletResponse response) {
+		//判断文件是否为空  
+		if(file == null)
+			System.out.println("导入文件为空！");
+		//获取文件名 
+		String fileName = file.getOriginalFilename();
+		//验证文件名是否合格  
+		if(!ExcelImportUtils.validateExcel(fileName)) {
+			System.out.println("文件格式不对！");
+		}
+		//进一步判断文件内容是否为空（即判断其大小是否为0或其名称是否为null）
+		long size = file.getSize();
+		if(StringUtils.isEmpty(fileName) || size == 0) {
+			System.out.println("文件内容不能为空！");
+		}
+		System.out.println("ok");
+		String rootPath = request.getSession().getServletContext().getRealPath(File.separator);
+		userService.importFile(file,rootPath);
+		
 	}
 	
 }
