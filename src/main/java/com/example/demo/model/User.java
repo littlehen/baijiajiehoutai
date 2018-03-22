@@ -1,11 +1,17 @@
 package com.example.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class User {
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)  
+	private  Integer uid;
+	
 	private String phone;
 	
 	private String name;
@@ -20,6 +26,14 @@ public class User {
 	
 	private String address;
 	
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
 	private Float zhima;
 	
 	private String huabei;
@@ -36,6 +50,19 @@ public class User {
 	
 	private String shenhestate;
 	
+	private String source;
+	
+	
+	private String shenqingshijian;
+	
+	public String getShenqingshijian() {
+		return shenqingshijian;
+	}
+
+	public void setShenqingshijian(String shenqingshijian) {
+		this.shenqingshijian = shenqingshijian;
+	}
+
 	public User() {
 		super();
 	}

@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.example.demo.model.User;
 
-public interface UserDao extends CrudRepository<User,String>{
+public interface UserDao extends CrudRepository<User,Integer>{
 	Page<User> findAll(Pageable pageable);
 	
 	List<User> findAll();
@@ -22,5 +24,9 @@ public interface UserDao extends CrudRepository<User,String>{
 	List<User> findByPhone(String phone);
 
 	Page<User> findByShenhestate(String string, Pageable pageable);
+	
+	@Modifying
+	@Query(nativeQuery = true,value = "delete  from dan where phone = ?1")
+	void delete1(String phone);
 
 }

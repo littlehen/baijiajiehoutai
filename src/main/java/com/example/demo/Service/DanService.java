@@ -32,7 +32,7 @@ public class DanService {
 	public Map<String,Object> ifhuobi(String code,String phone) {
 		Map<String,Object> map = new HashMap<>();
 		Business business = businessDao.findOne(code);
-		User user = userDao.findOne(phone);
+		List<User> user = userDao.findByPhone(phone);
 		Dan dan = new Dan();
 		int huobi = business.getHuobi();
 		Dan dan1 = danDao.findByCodeAndPhone(code,phone);
@@ -41,17 +41,17 @@ public class DanService {
 				huobi--;
 				business.setHuobi(huobi);
 				businessDao.save(business);
-				dan.setAddress(user.getAddress());
-				dan.setAge(user.getAge());
+				dan.setAddress(user.get(0).getAddress());
+				dan.setAge(user.get(0).getAge());
 				dan.setDay(3);
-				dan.setEdu(user.getEdu());
-				dan.setFuzhai(user.getFuzhai());
-				dan.setHuabei(user.getHuabei());
-				dan.setJiedaibao(user.getJiedaibao());
-				dan.setName(user.getName());
-				dan.setPhone(user.getPhone());
-				dan.setZhima(user.getZhima());
-				dan.setQq(user.getQq());
+				dan.setEdu(user.get(0).getEdu());
+				dan.setFuzhai(user.get(0).getFuzhai());
+				dan.setHuabei(user.get(0).getHuabei());
+				dan.setJiedaibao(user.get(0).getJiedaibao());
+				dan.setName(user.get(0).getName());
+				dan.setPhone(user.get(0).getPhone());
+				dan.setZhima(user.get(0).getZhima());
+				dan.setQq(user.get(0).getQq());
 				dan.setCode(code);
 				danDao.save(dan);
 				map.put("state", 1);//此操作将使用一个币

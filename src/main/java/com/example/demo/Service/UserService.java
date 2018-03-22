@@ -76,13 +76,13 @@ public class UserService {
 	public boolean deleteUser(String phone) {
 		String[] p = phone.split(",");
 		for(int i = 0 ; i < p.length; i++) {
-			userDao.delete(p[i]);
+			userDao.delete1(p[i]);
 		}
 		return true;
 	}
 
 	public boolean editUser(User user) {
-		User u = userDao.findOne(user.getPhone());
+		List<User> u = userDao.findByPhone(user.getPhone());
 //		u.setAddress(user.getAddress());
 //		u.setAge(user.getAge());
 //		u.setEdu(user.getEdu());
@@ -97,7 +97,7 @@ public class UserService {
 //		u.setQrcode(user.getQrcode());
 //		u.setState(1);
 //		u.setZhima(user.getZhima());
-		u.setShenhestate(user.getShenhestate());
+		u.get(0).setShenhestate(user.getShenhestate());
 		if(userDao.save(u)!= null)
 			return true;
 		return false;
@@ -137,7 +137,7 @@ public class UserService {
 		
 		String filename = mFile.getOriginalFilename();
 		
-		String ym = new SimpleDateFormat("yyyy-MM").format(new Date());
+		
 		String filePath =  filename;
 		try {
 			File file = new File(rootPath+filePath);
@@ -179,8 +179,12 @@ public class UserService {
 						User su = new User();
 						XSSFRow hRow = xSheet.getRow(i);
 						//这里
-						su.setName(hRow.getCell(0).toString());
-						su.setPhone(hRow.getCell(1).toString());
+						su.setSource(hRow.getCell(0).toString());
+						su.setName(hRow.getCell(1).toString());
+						su.setPhone(hRow.getCell(2).toString());
+						su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
+						su.setAddress(hRow.getCell(4).toString());
+						su.setShenqingshijian(hRow.getCell(5).toString());
 						userDao.save(su);
 					}
 			 }
@@ -212,8 +216,12 @@ public class UserService {
 					
 					//这里
 					HSSFRow hRow = hSheet.getRow(i);
-					su.setName(hRow.getCell(0).toString());
-					su.setPhone(hRow.getCell(1).toString());
+					su.setSource(hRow.getCell(0).toString());
+					su.setName(hRow.getCell(1).toString());
+					su.setPhone(hRow.getCell(2).toString());
+					su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
+					su.setAddress(hRow.getCell(4).toString());
+					su.setShenqingshijian(hRow.getCell(5).toString());
 					userDao.save(su);
 				}
 			}
