@@ -183,8 +183,9 @@ public class UserService {
 						su.setName(hRow.getCell(1).toString());
 						su.setPhone(hRow.getCell(2).toString());
 						su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
-						su.setAddress(hRow.getCell(4).toString());
-						su.setShenqingshijian(hRow.getCell(5).toString());
+						//su.setAddress(hRow.getCell(4).toString());
+						su.setShenqingshijian(hRow.getCell(5).toString());System.out.println(su.getSource()+"--------------");
+						
 						userDao.save(su);
 					}
 			 }
@@ -220,7 +221,7 @@ public class UserService {
 					su.setName(hRow.getCell(1).toString());
 					su.setPhone(hRow.getCell(2).toString());
 					su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
-					su.setAddress(hRow.getCell(4).toString());
+			//		su.setAddress(hRow.getCell(4).toString());
 					su.setShenqingshijian(hRow.getCell(5).toString());
 					userDao.save(su);
 				}

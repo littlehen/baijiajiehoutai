@@ -29,14 +29,12 @@
 	         		<th field="ck" checkbox="true"></th>
 	         		<th field="name" width="50">名字</th>
 	         		<th field="zhima" width="50">芝麻分</th>
-	         		<th field="address" width="50">省份</th>
-	         		<th  hidden="hidden" field="phone"  width="50">手机号码</th>
+	         		<th  field="phone"  formatter="formatDatebox"  width="50">手机号码</th>
 	         	
 	         	</tr>
 	         </thead>
 	         <div id="toolbar">
 	         	<div>
-	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">查看该用户信息</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
 	         	</div>
@@ -57,7 +55,7 @@
 			</div>
 			<div style="margin-top:10px">
 				<lable style="width:300px;float:left;text-align:right;">手机号:</lable>
-				<input style="width:200px" name="phone" class="easyui-validatebox" required="true" readonly="readonly">
+				<input style="width:200px" name="phone"  id="formatphonebox" class="easyui-validatebox" required="true" readonly="readonly">
 			</div>
 			<div style="margin-top:10px">
 				<lable style="width:300px;float:left;text-align:right;">地址:</lable>
@@ -86,7 +84,7 @@
 			</div>
 			<div style="margin-top:10px">
 				<lable style="width:300px;float:left;text-align:right;">QQ:</lable>
-				<input style="width:200px" name="qq" class="easyui-validatebox" required="true" readonly="readonly">
+				<input style="width:200px" name="qq" id="formatqqbox"  class="easyui-validatebox" required="true" readonly="readonly">
 			</div>
 			<div style="margin-top:10px">
 				<lable style="width:300px;float:left;text-align:right;">芝麻信用:</lable>
@@ -95,7 +93,9 @@
 			
 		</form>
 		<div id="dlg-buttons">
-			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg').dialog('close')">确定</a>
+		<a href="#" class = "easyui-linkbutton" onclick="seeUser()">购买该用户信息</a>
+			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg').dialog('close')">取消</a>
+			
 		</div> 
 	</div>
 	</div>
@@ -123,6 +123,16 @@ $(function(){
 	
 });		
 
+
+
+function formatDatebox(value) {    
+    if (value == null || value == '') {    
+        return '';    
+    }       
+    var  s=value.substring(0,3)+"***"+value.substring(9,11);
+    
+    return s; //扩展的Date的format方法(上述插件实现)    
+}    
 	
 	var url;
 	function doSearch(){
@@ -132,36 +142,24 @@ $(function(){
      });
 	}
 	
-	function destroyUser(){
-		var selRow = $('#dg').datagrid("getSelections");
-		
-		if(selRow.length == 0){
-			alert("请至少选择一行");
-			return false;
-		}
-		
-		var p = selRow[0].phone;
-		for(var i = 1; i < selRow.length;i++){
-			p += ',' + selRow[i].phone;
-		}
-		if(selRow){
-			$.messager.confirm('Confirm','Are you sure you want to destroy this User?',function(r){
-				if(r){
-					//$.post('/delete?id='+a,function(result){
-					$.post('/deleteUser?phone='+ p,function(result){
-						if (result){
-							$('#dg').datagrid('reload');	// reload the user data
-							alert("success");
-						} else {
-							alert("error");
-						}
-					},'json');
-				}
-			});
-		}
-	}
-		
 	function editUser(){
+		var row = $('#dg').datagrid('getSelected');
+		if(row){
+			$('#dlg').dialog('open').dialog('setTitle','用户信息');
+			$('#fm').form('load',row);	
+		}
+				var value = $("#formatphonebox").val();
+				
+			    var  s=value.substring(0,3)+"***"+value.substring(9,11);
+			    $("#formatphonebox").val(s);
+			    
+				var value1 = $("#formatqqbox").val();
+				
+			    var  s1=value1.substring(0,3)+"***"+value1.substring(9,11);
+			    $("#formatqqbox").val(s1);
+			}
+	
+	function seeUser(){
 		var row1 = $('#dg').datagrid('getSelected');
 		a = row1.phone;
 		$.ajax({
@@ -177,12 +175,8 @@ $(function(){
 					<!--}-->
 					<!--}); -->
 					    
-					    	var row = $('#dg').datagrid('getSelected');
-							if(row){
-								$('#dlg').dialog('open').dialog('setTitle','用户信息');
-								$('#fm').form('load',row);	
-							}
-					   
+					    	
+							    
 					
 				}else if(data.state == 0){
 					alert("货币不足!");
@@ -210,3 +204,4 @@ $(function(){
 	}   -->
 </script>
 </html>
+
