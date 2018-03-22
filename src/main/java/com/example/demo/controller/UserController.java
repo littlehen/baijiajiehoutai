@@ -54,7 +54,7 @@ public class UserController {
 	}
 	
 	@SuppressWarnings("unlikely-arg-type")
-	@RequestMapping("/exportUser")
+	@RequestMapping("/exportUs")
 	public void exportUser(HttpServletRequest req,HttpServletResponse resp) throws IOException {
 		 HSSFWorkbook workbook = new HSSFWorkbook();
 	     HSSFSheet sheet = workbook.createSheet("用户信息表");
@@ -64,7 +64,7 @@ public class UserController {
 	     
 	     int rowNum = 1;
 	     
-	     String[] headers= {"用户姓名","手机号","地址","年龄","负债","是否有花呗","是否有借贷宝","借款额度","QQ","芝麻信用","审核状态"};
+	     String[] headers= {"来源","姓名","手机号","芝麻信用分","地区","申请时间"};
 		   //headers表示excel表中第一行的表头
 	     
 	     HSSFRow row = sheet.createRow(0);
@@ -79,54 +79,29 @@ public class UserController {
 		     for(int i=0;i<userlist.size();i++) {
 		        	HSSFRow row1 = sheet.createRow(rowNum);
 		        	User dan = userlist.get(i);
+		        	row1.createCell(0).setCellValue("享来介");
 		        	if(dan.getName()!=null && !"".equals(dan.getName()))
-		        		row1.createCell(0).setCellValue(dan.getName());
-		        	else
-		        		row1.createCell(0).setCellValue("");
-		        	if(dan.getPhone()!=null &&!"".equals(dan.getPhone()))
-		        		row1.createCell(1).setCellValue(dan.getPhone());
+		        		row1.createCell(1).setCellValue(dan.getName());
 		        	else
 		        		row1.createCell(1).setCellValue("");
-		        	if(dan.getAddress()!=null && "".equals(dan.getAddress())) {
+		        	if(dan.getPhone()!=null && !"".equals(dan.getPhone())) {
 		        		//String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(dan.getBorrow_date());
-		        		row1.createCell(2).setCellValue(dan.getAddress());
+		        		row1.createCell(2).setCellValue(dan.getPhone());
 		        	}
 		        	else
 		        		row1.createCell(2).setCellValue("");
-		        	if(dan.getAge()!=null && "".equals(dan.getAge())) {
+		        	if(dan.getZhima()!=null && !"".equals(dan.getZhima())) {
 		        		//String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(dan.getPay_data());
-		        		row1.createCell(3).setCellValue(dan.getAge());
+		        		row1.createCell(3).setCellValue(dan.getZhima());
 		        	} 
 		        	else
 		        		row1.createCell(3).setCellValue("");
-		        	if(dan.getFuzhai()!=null && "".equals(dan.getFuzhai())) {
-		        		row1.createCell(4).setCellValue(dan.getFuzhai());
+		        	if(dan.getAddress()!=null && !"".equals(dan.getAddress())) {
+		        		row1.createCell(4).setCellValue(dan.getAddress());
 		        	}else
 		        		row1.createCell(4).setCellValue("");
-		        	if(dan.getHuabei()!=null && "".equals(dan.getHuabei())) {
-		        		row1.createCell(5).setCellValue(dan.getHuabei());
-		        	}else
-		        		row1.createCell(5).setCellValue("");
-		        	if(dan.getJiedaibao()!=null && "".equals(dan.getJiedaibao())) {
-		        		row1.createCell(6).setCellValue(dan.getJiedaibao());
-		        	}else
-		        		row1.createCell(6).setCellValue("");
-		        	if(dan.getEdu()!=null && "".equals(dan.getEdu())) {
-		        		row1.createCell(7).setCellValue(dan.getEdu());
-		        	}else
-		        		row1.createCell(7).setCellValue("");
-		        	if(dan.getQq()!=null && "".equals(dan.getQq())) {
-		        		row1.createCell(8).setCellValue(dan.getQq());
-		        	}else
-		        		row1.createCell(8).setCellValue("");
-		        	if(dan.getZhima()!=null && "".equals(dan.getZhima())) {
-		        		row1.createCell(9).setCellValue(dan.getZhima());
-		        	}else
-		        		row1.createCell(9).setCellValue("");
-		        	if(dan.getState()!=null && "".equals(dan.getState())) {
-		        		row1.createCell(10).setCellValue(dan.getState());
-		        	}else
-		        		row1.createCell(10).setCellValue("");
+		        
+		        	row1.createCell(5).setCellValue("");
 		        }
 	     }
 	     

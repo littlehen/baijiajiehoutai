@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>享来介后台管理系统</title>
+<title>木木钱包后台管理系统</title>
 
 <script type="text/javascript" src="/../js/jquery.min.js"></script>
 <script type="text/javascript" src = "/../js/jquerysession.js"></script>
@@ -34,7 +34,6 @@
 	         		<th field="fuzhai" width="50">负债</th>
 	         		<th field="huabei" width="50">是否有花呗</th>
 	         		<th field="jiedaibao" width="50">是否有借贷宝</th>
-	         		<th field="password" width="50" >密码</th>
 	         		<!-- <th field="photo" width="50" >身份证照片</th>	 -->         		
 	         		<th field="qq" width="50">QQ</th>
 	         		<!--<th field="qrcode" width="50">微信二维码</th> -->
@@ -47,7 +46,7 @@
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">审核</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
-	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-save"  plain="true" onclick="exportUser()">导出为excel</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-save"   onclick="exportUs()">导出为excel</a>
 	         	</div>
 	         	<div>
 	         		<span>手机号码</span>
@@ -248,16 +247,16 @@ $(function(){
 			}
 		});
 	}
-	<!--//图片展示  
-	function showImg(value, row, index){  
-	    if(row.photo){  
-	       return "<img style='width:24px;height:24px;' border='1' src='"+row.phone+"'>";  
-	    }  
-
-	}   -->
 	
-	function exportUser(){
-		location.href="/exportUser";
+	//function showImg(value, row, index){  
+	//    if(row.photo){  
+	//       return "<img style='width:24px;height:24px;' border='1' src='"+row.phone+"'>";  
+	//    }  
+
+//	}   
+	
+	function exportUs(){
+		location.href="/exportUs";
 	}
 </script>
 </html>

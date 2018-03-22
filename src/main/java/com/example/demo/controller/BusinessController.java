@@ -135,13 +135,13 @@ public class BusinessController {
 	        	}
 	        	else
 	        		row1.createCell(2).setCellValue("");
-	        	if(dan.getQq()!=null && "".equals(dan.getQq())) {
+	        	if(dan.getQq()!=null && !"".equals(dan.getQq())) {
 	        		//String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(dan.getPay_data());
 	        		row1.createCell(3).setCellValue(dan.getQq());
 	        	}
 	        	else
 	        		row1.createCell(3).setCellValue("");
-	        	if(dan.getshenhestate()!=null && "".equals(dan.getshenhestate())) {
+	        	if(dan.getshenhestate()!=null && !"".equals(dan.getshenhestate())) {
 	        		row1.createCell(4).setCellValue(dan.getshenhestate());
 	        	}
 	        	else
