@@ -42,14 +42,27 @@
 											</li><li>
 												<a href="#" onclick = "userHuobi()">商家货币</a>
 											</li>								</ul>
-							</li><li data-id="13160" class="treeview ">
+							</li>
+					<li data-id="13160" class="treeview ">
 								<a  data-close-others="true"> 用户管理 </a>
 								<div class="img_biao"></div>
 								<ul>
 									<li>
-												<a href="#" onclick = "userPass()">用户审核</a>
-											</li>			
+										<a href="#" onclick = "userPass()">用户审核</a>
+									</li>	
+									<li>
+										<a href="#" onclick = "userImp()">用户信息导入</a>
+									</li>		
 								</ul></li>
+					<li data-id="18" class="treeview ">
+								<a  data-close-others="true"> 网页管理 </a>
+								<div class="img_biao"></div>
+								<ul>
+									<li>
+											<a href="#" onclick = "addHtml1()">增加页面</a>
+									</li>			
+								</ul>
+					</li>
 								
 				</ul>
 				<div id="content" style="padding:10px; padding-right: 50px; padding-left:0;padding-bottom:10px; left: 280px;position:absolute;right: 0;bottom: 0;top: 98px; overflow: auto">
@@ -80,7 +93,6 @@
 //	});
 	function userPass(){
 		$("#content").load('/admin/userinfo.html');
-		
 	}
 	function businessPass(){
 		$("#content").load('/admin/business.html');
@@ -90,7 +102,13 @@
 	}
 	function userHuobi(){
 		$("#content").load('/admin/edithuobi.html');
-		
+	}
+	function addHtml1(){
+		$("#content").load('/admin/html.html');
+	}
+	
+	function userImp(){
+		$("#content").load('/admin/userimp.html');
 	}
 </script>
 </html>

@@ -21,7 +21,7 @@
 <div class= "container-fluid">
 		<div class="row">
 		<div  class="col-sm-12 col-md-12 main">
-<table id="dg" class="easyui-datagrid" style="width:auto;height:auto"
+<table id="dg3" class="easyui-datagrid" style="width:auto;height:auto"
 	         url="/Search"
 	         toolbar="#toolbar"
 	         rownumbers="true" fitColumns="true" singleSelect="true" checkOnSelect="true"
@@ -55,7 +55,7 @@
 	         </div>	
 	</table>
 	
-	<div id="dlg" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+	<div id="dlg3" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
 	closed="true" buttons="#dlg-buttons">
 		<div class="ftitle"> 商家信息</div>
 		<form id="fm" method="post" novalidate>
@@ -105,7 +105,7 @@
 		</form>
 		<div id="dlg-buttons">
 			<a href="#" class="easyui-linkbutton" onclick="saveBusiness()">确定</a>
-			<a href="#" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+			<a href="#" class="easyui-linkbutton" onclick="javascript:$('#dlg3').dialog('close')">取消</a>
 		</div> 
 	</div>
 	
@@ -119,19 +119,19 @@
 <script >
 	var url;
 	function doSearch(){
-		$('#dg').datagrid('load',{
+		$('#dg3').datagrid('load',{
 			qq:$('#QQ').val(),
 		});
 	}
 	
 	function addBusiness(){
-		$('#dlg').dialog('open').dialog('setTitle','新商家')
+		$('#dlg3').dialog('open').dialog('setTitle','新商家')
 		$('#fm').form('clear')
 		url = '/addBusiness';
 	}
 	
 	function destroyBusiness(){
-		var selRow = $('#dg').datagrid("getSelections");
+		var selRow = $('#dg3').datagrid("getSelections");
 		
 		if(selRow.length == 0){
 			alert("请至少选择一行");
@@ -148,7 +148,7 @@
 					//$.post('/delete?id='+a,function(result){
 					$.post('/delete?bid='+ b,function(result){
 						if (result){
-							$('#dg').datagrid('reload');	// reload the user data
+							$('#dg3').datagrid('reload');	// reload the user data
 							alert("success");
 						} else {
 							alert("error");
@@ -163,9 +163,9 @@
 		var admin;
 		adminj = $.session.get('admin');
 		admin = $.parseJSON( adminj );
-		var row = $('#dg').datagrid('getSelected');
+		var row = $('#dg3').datagrid('getSelected');
 		if(row){
-			$('#dlg').dialog('open').dialog('setTitle','商家信息');
+			$('#dlg3').dialog('open').dialog('setTitle','商家信息');
 			$('#fm').form('load',row);
 			url='/editBusiness/'+admin.aname;
 		}
@@ -188,8 +188,8 @@
 						alert("审核进行中");
 					if(result1.state=="审核不通过")
 						alert("审核不通过");
-						$('#dlg').dialog('close');		// close the dialog
-						$('#dg').datagrid('reload');	// reload the user data
+						$('#dlg3').dialog('close');		// close the dialog
+						$('#dg3').datagrid('reload');	// reload the user data
 				} else {
 					$.messager.show({
 						title: 'Error',

@@ -47,7 +47,7 @@
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">审核</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-save"   onclick="exportUs()">导出为excel</a>
-	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-save"   onclick="checkExcel()">导入Excel</a>
+	         		
 	         		
 	         	</div>
 	         	<div>
@@ -145,9 +145,7 @@
 	</div>
 	</div>
 	</div>
-	<form id="formid" action="/batchImport" method="post" enctype="multipart/form-data">
-	         			<input type='file' name="filename" id ='file'/>
-	 				</form>
+
 </body> 
 
 
@@ -262,14 +260,7 @@ $(function(){
 		location.href="/exportUs";
 	}
 	
-	function checkExcel(){
-		var fi = document.getElementById("file").value;
-		if(!fi){
-			alert("导入文件不能为空");
-			return false;
-		}
-		document.getElementById("formid").submit();
-	}
+	
 	
 </script>
 </html>

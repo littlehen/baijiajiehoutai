@@ -34,6 +34,8 @@ public class BusinessController {
 	List<Business> Businesslist = new ArrayList<>();
 	@RequestMapping("/blogin")
 	public Map<String,Object> login(String code,String bpassword) {
+		
+		System.out.println(code + "-------" + bpassword);
 		Businesslist = businessService.businessAl();
 		return businessService.login(code, bpassword);
 	}
@@ -158,7 +160,7 @@ public class BusinessController {
 	        workbook.write(out);
 	        out.flush();
 	        out.close();
-	     
-	     
 	}
+	
+	
 }

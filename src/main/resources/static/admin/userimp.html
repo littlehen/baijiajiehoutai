@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div style="position:fixed;top:200px;left:700px;width:200px;height:200px;">
+		
+		<div style="margin-top:10px;color:red;" >
+			<a href="#" class = "easyui-linkbutton" iconCls="icon-save"   onclick="checkExcel()">导入Excel数据</a>
+			<br>
+			<br>
+			<form id="formid" action="/batchImport" method="post" enctype="multipart/form-data">
+	         	<input type='file' name="filename" id ='file' />
+			</form>
+		</div>
+		
+	</div>
+
+
+
+	
+</body>
+<script type="text/javascript">
+function checkExcel(){
+	var fi = document.getElementById("file").value;
+	if(!fi){
+		alert("导入文件不能为空");
+		return false;
+	}
+	document.getElementById("formid").submit();
+}
+</script>
+</html>

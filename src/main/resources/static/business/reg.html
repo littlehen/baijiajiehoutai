@@ -1,93 +1,129 @@
 <!DOCTYPE html>
-<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>木木钱包注册页面</title>
+<link rel="stylesheet" href="../loginHtml/css/style.default.css" type="text/css" />
+<script type="text/javascript" src="../loginHtml/js/plugins/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="../loginHtml/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="../loginHtml/js/plugins/jquery.cookie.js"></script>
+<script type="text/javascript" src="../loginHtml/js/plugins/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="../loginHtml/js/custom/general.js"></script>
+<script type="text/javascript" src="../loginHtml/js/custom/index.js"></script>
 
-<!-- Head -->
-<head>
+<style type="text/css">
+a:link { 
+color:#87CEFF; 
+text-decoration:underline; 
+} 
+a:visited { 
+color:#0000FF; 
+text-decoration:none; 
+} 
+a:hover { 
+color:#FF00FF; 
+text-decoration:none; 
+} 
+a:active { 
+color:#D200D2; 
+text-decoration:none; 
+} 
 
-	<title>登录表单</title>
-
-	<!-- Meta-Tags -->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-	<!-- //Meta-Tags -->
-
-	<!-- Style --> <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
-
-
-
+.nini {
+    background-color:#CD8500; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+</style>
 </head>
 <!-- //Head -->
 
 <!-- Body -->
-<body>
+<body class="loginpage">
+	<div class="loginbox">
+    	<div class="loginboxinner">
+        	
+            <div class="logo">
+            	<h1 class="logo">木木<span>商家入驻</span></h1>
+				<span class="slogan">后台管理系统</span>
+            </div><!--logo-->
+            
+            <form  action="#" method="post">
+            	
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="code" id="code" placeholder="登录账号"/>
+                    </div>
+                </div>
+                
+                <div class="password">
+                	<div class="passwordinner">
+                    	<input type="password" name="password" id="password" placeholder="登录密码"/>
+                    </div>
+                </div>
+                
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="bname" id="bname" placeholder="商家名称"/>
+                    </div>
+                </div>
+                
+                <div class="password">
+                	<div class="usernameinner">
+                    	<input type="text" name="QQ" id="QQ" placeholder="QQ"/>
+                    </div>
+                </div>
+                
+                <div class="password">
+                	<div class="usernameinner">
+                    	<input type="text" name="amount" id="amount" placeholder="最高可借款金额"/>
+                    </div>
+                </div>
+                
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="period" id="period" placeholder="商家借款周期"/>
+                    </div>
+                </div>
+                
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="period" id="period" placeholder="用户申请借款的资格"/>
+                    </div>
+                </div>
+                
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="qualification" id="qualification" placeholder="商家借款周期"/>
+                    </div>
+                </div>
+                
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="materials" id="materials" placeholder="用户申请借款所需的材料"/>
+                    </div>
+                </div>
+                
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="matters" id="matters" placeholder="注意事项"/>
+                    </div>
+                </div>
+                
+            </form>
+             <button id="ruzhu">注册</button>
+             
+             <div class="keep" >
+             	<div style="float:left;"><a href="#" onclick="tiaodenglu();">返回登录</a></div>
+             </div>
+            
+        </div><!--loginboxinner-->
+    </div><!--loginbox-->
 
-	<h1>享来介后台管理系统</h1>
 
-	<div class="container w3layouts agileits" style="width:500px;heigt:800px;">
-		<div >
-						<h2>商家入驻</h2>
-						<div >
-							<label >登录账号</label>
-							<input type="text"  id="code" placeholder="登录账号" autocomplete="off">
-						</div>
-						<div >
-							<label >登录密码</label>
-							<input type="password" id="password" placeholder="登录密码" autocomplete="off">
-						</div>
-						<div >
-							<label >商家名称</label>
-							<input type="text"  id="bname" placeholder="商家名称" autocomplete="off">
-						</div>
-						<div >
-							<label >QQ</label>
-							<input type="text"  id="QQ" placeholder="QQ" autocomplete="off">
-						</div>
-						<div >
-							<label  >最高可借款金额</label>
-							<input type="text" id="amount" placeholder="最高可借款金额" autocomplete="off">
-						</div>
-						<div >
-							<label >商家借款周期</label>
-							<input type="text"  id="period" placeholder="商家借款周期" autocomplete="off">
-						</div>
-						<div >
-							<label  >用户申请借款的资格</label>
-							<input type="text" id="qualification" placeholder="用户申请借款的资格" autocomplete="off">
-						</div>
-						<div >
-							<label >用户申请借款所需的材料</label>
-							<input type="text"  id="materials" placeholder="用户申请借款所需的材料" autocomplete="off">
-						</div>
-						<div >
-							<label  >注意事项</label>
-							<input type="text" id="matters" placeholder="注意事项" autocomplete="off">
-						</div>
-						<!-- <div >
-						<select name="dangshu" id="dangshu" style="width:200px;height:50px">
-							<option value="1" selected=""  disabled="">请选择申请档数</option>
-							<option value="2">一档</option>
-							<option value="3">二档</option>
-							<option value="4">三档</option>
-						</select>
-						</div>
-						 -->
-						<div></br></div>
-						<div class="send-button w3layouts agileits">
-						<input type="submit" value="商家入驻" id = "ruzhu">
-						</div>
-				</div>
-		</div>
-		
-
-		<div class="clear"></div>
-
-	</div>
-
-	<div class="footer w3layouts agileits">
-		<p>Copyright &copy; 木木钱包-2018 </p>
-	</div>
 </body>
 <script src ="../js/jquery-3.1.0.min.js" ></script>
 <script type="text/javascript" src = "../js/jquerysession.js"></script>
@@ -122,6 +158,10 @@ $("#ruzhu").click(function(){
 		}
 	});
 });
+
+function tiaodenglu(){
+	window.location.href="/index.html";
+}
 </script>
 </html>
 

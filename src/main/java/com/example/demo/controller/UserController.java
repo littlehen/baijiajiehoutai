@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Service.UserService;
-import com.example.demo.model.Business;
 import com.example.demo.model.User;
 import com.example.demo.util.ExcelImportUtils;
 
@@ -43,7 +41,7 @@ public class UserController {
 		return userService.findByPhone(phone,page,rows);
 	}
 	
-	@PostMapping(value="userlist")
+	@PostMapping(value="/userlist")
 	public Map<String,Object> users(String admin,Integer page,Integer rows){
 		userlist = userService.userlis(admin);
 		return userService.userlist(admin,page,rows);
@@ -127,7 +125,7 @@ public class UserController {
 	
 	@RequestMapping("/batchImport")
 	public void batchImport(@RequestParam(value="filename") MultipartFile file,HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException   {
 		//判断文件是否为空  
 		if(file == null)
 			System.out.println("导入文件为空！");
@@ -145,7 +143,22 @@ public class UserController {
 		System.out.println("ok");
 		String rootPath = request.getSession().getServletContext().getRealPath(File.separator);
 		userService.importFile(file,rootPath);
-		
+		response.setContentType("text/html;charset=utf-8");
+		response.sendRedirect("/admin/index.html");
 	}
 	
+	
+	
+	
+	//houtaiadd  -- h5
+	@RequestMapping("/Laiqian")
+	public Map<String,Object> Laiqian(String name,String IdCard,String money,String phone,String qq,String 	wxnumber,String zhima){
+		
+		return userService.Laiqian(name, IdCard, money, phone, qq, wxnumber, zhima);
+	}
+	
+	@RequestMapping("/yanzheng")
+	public Map<String,Object> yanzheng(String mobile){
+		return userService.yanzhengma(mobile);
+	}
 }

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)https://www.9tich.com/titaniumFinancialH5/index.html?from=singlemessage&isappinstalled=0#/firstApply -->
+<html class="ng2-style-sheet"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<meta name="format-detection" content="telephone=no">
+  <title>借款申请</title>
+  <link rel="stylesheet" href="css/maid.css">
+  <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" href="css/my.css">
+
+    <style>@charset "UTF-8";
+    .bg-pic.bOne[_ngcontent-c0] {
+    background-image: url("assets/images/firstPic.png"); }
+
+i.shadow[_ngcontent-c0] {
+  position: relative;
+  display: inline-block;
+  width: 53%;
+  height: 0px;
+  background-color: rgba(255, 115, 35, 0.5);
+  bottom: 15px;
+  left: -26%;
+  margin-left: 50%;
+  box-shadow: 0 0 25px 4px #f75a01;
+  opacity: 0; }
+    .submit[_ngcontent-c0] {
+  background: #FF7422;
+  margin-top: 40px;
+  color: white;
+  height: 49px;
+  width: 63%;
+  border-radius: 100px;
+  margin: 10px 0 0 18.5%;
+  font-size: 18px; }
+
+    </style>
+</head>
+<body>
+  <div id="hc-ng2-container">
+
+    <ion-nav><div nav-viewport=""></div><div class="nav-decor"></div></ion-nav>
+    <router-outlet></router-outlet>
+        <div _ngcontent-c1="" class="jon-base-page main-absolute-page main-enter-page">
+    <ion-content _ngcontent-c1="" class="content content-ios"><div class="fixed-content"></div><div class="scroll-content">
+  <div _ngcontent-c1="" class="page-wrap bOneLast" style=" background:url(assets/images/firstPic.png);">
+
+
+    <div _ngcontent-c1="" class="wrap">
+      <ul _ngcontent-c1="" class="list-wrap">
+        <li _ngcontent-c1="">
+            <section _ngcontent-c1="" class="start"><!----><span _ngcontent-c1="" class="icon-start">＊</span></section>
+          <i _ngcontent-c1="" class="name"></i>
+          <input _ngcontent-c1="" maxlength="10" placeholder="请输入姓名" type="text" id ="name" class="ng-untouched ng-pristine ng-valid">
+        </li>
+        <li _ngcontent-c1="">
+            <section _ngcontent-c1="" class="start"><!----><span _ngcontent-c1="" class="icon-start">＊</span></section>
+          <i _ngcontent-c1="" class="ident-card"></i>
+          <input _ngcontent-c1="" maxlength="18" placeholder="请输入身份证号" type="text" id="idcard"class="ng-untouched ng-pristine ng-valid">
+        </li>
+        <li _ngcontent-c1="">
+            <section _ngcontent-c1="" class="start"><!----><span _ngcontent-c1="" class="icon-start">＊</span></section>
+          <i _ngcontent-c1="" class="tel"></i>
+          <input _ngcontent-c1="" maxlength="11" placeholder="请输入手机号" type="tel"  id="phone"class="ng-untouched ng-pristine ng-valid" readonly="readonly">
+        </li>
+        <li _ngcontent-c1="">
+            <section _ngcontent-c1="" class="start"><!----><span _ngcontent-c1="" class="icon-start" style="color: red;">＊</span></section>
+            <i _ngcontent-c1="" class="zhima"></i>
+          <input _ngcontent-c1="" maxlength="4" placeholder="请输入芝麻信用分" type="text" id="zhima"class="ng-untouched ng-pristine ng-valid">
+        </li>
+        <li _ngcontent-c1="">
+            <section _ngcontent-c1="" class="start"><!----><span _ngcontent-c1="" class="icon-start">＊</span></section>
+          <i _ngcontent-c1="" class="weixin"></i>
+          <input _ngcontent-c1="" maxlength="20" placeholder="请输入微信号" type="text" id="wxnumber"class="ng-untouched ng-pristine ng-valid">
+        </li>
+        <li _ngcontent-c1="">
+            <section _ngcontent-c1="" class="start"><!----><span _ngcontent-c1="" class="icon-start">＊</span></section>
+          <i _ngcontent-c1="" class="qq"></i>
+          <input _ngcontent-c1="" maxlength="15" minlength="5" placeholder="请输入QQ号" type="text" id="qq" class="ng-untouched ng-pristine ng-valid">
+        </li>
+        <li _ngcontent-c1="">
+            <section  class="start"><!----><span _ngcontent-c1="" class="icon-start">＊</span></section>
+            <i _ngcontent-c1="" class="money"></i>
+            <input _ngcontent-c1="" maxlength="5" placeholder="请输入借款金额" style="width: 130px;" id="money" type="tel" class="ng-untouched ng-pristine ng-valid">
+            <span _ngcontent-c1="" class="yuan">元</span>
+        </li>
+      </ul>
+       <div>
+           <button   _ngcontent-c0=""   class="submit " id="tijiao"; >马上领钱</button>
+           <i _ngcontent-c0="" class="shadow"></i>
+       </div>
+    </div></ion-content></div></div>
+
+</body>
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="js/jquerysession.js"></script>
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+        document.getElementById('phone').value=$.session.get('phone');
+});
+
+	$('#tijiao').click(function(){
+		var m1 = document.getElementById("name").value;
+		var m2 = document.getElementById("idcard").value;
+		var m3 = document.getElementById("phone").value;
+		var m4 = document.getElementById("zhima").value;
+		var m5 = document.getElementById("wxnumber").value;
+		var m6 = document.getElementById("qq").value;
+		var m7 = document.getElementById("money").value;
+		if(m1.length == 0){
+			alert("请输入姓名");
+			return false;
+		}
+		
+		if(m2.length == 0 || m2.length != 18){
+			alert("身份证未输入或位数错误");
+			return false;
+		}
+		
+		if(m4.length == 0){
+			alert("请输入芝麻信用分");
+			return false;
+		}
+		
+		if(m5.length == 0){
+			alert("请输入微信号");
+			state = false;
+		}
+		
+		if(m6.length == 0){
+			alert("请输入QQ号");
+			return false;
+		}
+		
+		if(m7.length == 0){
+			alert("请输入借款金额");
+			return false;
+		}
+		
+		$.ajax({
+			type:'post',
+			data:{"name":m1,"IdCard":m2,"money":m7,"phone":m3,"qq":m6,"wxnumber":m5,"zhima":m4},
+			url:'/Laiqian',
+			dataType:'json',
+			success:function(data){
+			    if(data.guo=='123')
+				    alert("恭喜您，您的申请已经提交成功！请耐心等待客服回访电话！");
+			}
+		});
+		
+		});
+</script>
+</html>

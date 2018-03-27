@@ -18,23 +18,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.example.demo.dao.UserDao;
-import com.example.demo.model.Administrator;
 import com.example.demo.model.User;
+import com.example.demo.other.Api;
 import com.example.demo.util.ExcelImportUtils;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 
 
 @Service
@@ -179,8 +172,9 @@ public class UserService {
 						User su = new User();
 						XSSFRow hRow = xSheet.getRow(i);
 						//这里
-						if(hRow.getCell(0).toString() != null &&!"".equals(hRow.getCell(0).toString()))
+						if(hRow.getCell(0).toString() != null &&!"".equals(hRow.getCell(0).toString())) {
 							su.setSource(hRow.getCell(0).toString());
+						}
 						if(hRow.getCell(1).toString() != null &&!"".equals(hRow.getCell(1).toString()))
 							su.setName(hRow.getCell(1).toString());
 						if(hRow.getCell(2).toString() != null &&!"".equals(hRow.getCell(2).toString()))
@@ -219,22 +213,23 @@ public class UserService {
 			if(null != hSheet) {
 				for (int i = 1; i < hSheet.getPhysicalNumberOfRows(); i++){  
 					User su = new User();
-					
 					//这里
 					HSSFRow hRow = hSheet.getRow(i);
-					if(hRow.getCell(0).toString() != null &&!"".equals(hRow.getCell(0).toString()))
-						su.setSource(hRow.getCell(0).toString());
-					if(hRow.getCell(1).toString() != null &&!"".equals(hRow.getCell(1).toString()))
-						su.setName(hRow.getCell(1).toString());
-					if(hRow.getCell(2).toString() != null &&!"".equals(hRow.getCell(2).toString()))
-						su.setPhone(hRow.getCell(2).toString());
-					if(hRow.getCell(3).toString() != null &&!"".equals(hRow.getCell(3).toString()))
-						su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
-					if(hRow.getCell(4).toString() != null &&!"".equals(hRow.getCell(4).toString()))
-						su.setAddress(hRow.getCell(4).toString());
-					if(hRow.getCell(5).toString() != null &&!"".equals(hRow.getCell(5).toString()))
-						su.setShenqingshijian(hRow.getCell(5).toString());
-					userDao.save(su);
+					if(hRow!=null) {
+						if(hRow.getCell(0).toString() != null &&!"".equals(hRow.getCell(0).toString()))
+							su.setSource(hRow.getCell(0).toString());
+						if(hRow.getCell(1).toString() != null &&!"".equals(hRow.getCell(1).toString()))
+							su.setName(hRow.getCell(1).toString());
+						if(hRow.getCell(2).toString() != null &&!"".equals(hRow.getCell(2).toString()))
+							su.setPhone(hRow.getCell(2).toString());
+						if(hRow.getCell(3).toString() != null &&!"".equals(hRow.getCell(3).toString()))
+							su.setZhima(Float.parseFloat(hRow.getCell(3).toString()));
+						if(hRow.getCell(4).toString() != null &&!"".equals(hRow.getCell(4).toString()))
+							su.setAddress(hRow.getCell(4).toString());
+						if(hRow.getCell(5).toString() != null &&!"".equals(hRow.getCell(5).toString()))
+							su.setShenqingshijian(hRow.getCell(5).toString());
+						userDao.save(su);
+					}
 				}
 			}
 				
@@ -250,5 +245,45 @@ public class UserService {
 			}
 			
 		}
+		
+	}
+	
+	
+	//houtaiadd  -- h5 
+	public Map<String,Object> Laiqian(String name,String IdCard,String money,String phone,String qq,String 	wxnumber,String zhima){
+		User  user = new User();
+		Map<String,Object> map = new HashMap<>();
+		if(name != null && !"".equals(name))
+			user.setIdcard(IdCard);
+		if(IdCard != null && "".equals(IdCard))
+			user.setName(name);
+		if(money != null && !"".equals(money))
+			user.setMoney(money);
+		if(phone != null && !"".equals(phone))
+			user.setPhone(phone);
+		if(qq != null && !"".equals(qq))
+			user.setQq(qq);
+		if(wxnumber != null && !"".equals(wxnumber))
+			user.setWxnumber(wxnumber);
+		if(zhima != null && !"".equals(zhima))
+			user.setZhima(Float.parseFloat(zhima));
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		 Date date = new Date();
+		 String shenqingdate = sdf.format(date);
+		 user.setShenqingshijian(shenqingdate);
+		userDao.save(user);
+		map.put("guo", 123);
+		return map;
+		
+	}
+	
+	public Map<String,Object> yanzhengma(String mobile){
+		Map<String,Object> map = new HashMap<>();
+		int random=(int)(Math.random()*10000);
+		String a = Api.Sendinfo(mobile, random);
+		System.out.println(a);
+		map.put("mama", random);
+		return map;
+		
 	}
 }

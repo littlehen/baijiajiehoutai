@@ -55,6 +55,47 @@ public class User {
 	
 	private String shenqingshijian;
 	
+	
+	private String idcard;
+	
+	private String money;
+	
+	private String wxnumber;
+	
+	
+	
+	public String getWxnumber() {
+		return wxnumber;
+	}
+
+	public void setWxnumber(String wxnumber) {
+		this.wxnumber = wxnumber;
+	}
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
+	}
+
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
+	public String getIdcard() {
+		return idcard;
+	}
+
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
+	}
+
 	public String getShenqingshijian() {
 		return shenqingshijian;
 	}

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>登录页面</title>
+<link rel="stylesheet" href="loginHtml/css/style.default.css" type="text/css" />
+<script type="text/javascript" src="loginHtml/js/plugins/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="loginHtml/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="loginHtml/js/plugins/jquery.cookie.js"></script>
+<script type="text/javascript" src="loginHtml/js/plugins/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="loginHtml/js/custom/general.js"></script>
+<script type="text/javascript" src="loginHtml/js/custom/index.js"></script>
+
+</head>
+<!-- //Head -->
+
+<!-- Body -->
+<body class="loginpage">
+	<div class="loginbox">
+    	<div class="loginboxinner">
+        	
+            <div class="logo">
+            	<h1 class="logo">木木.钱包<span>管理员</span></h1>
+				<span class="slogan">后台管理系统</span>
+            </div><!--logo-->
+            
+            <form  action="#" method="post">
+            	
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="username" id="username" placeholder="管理员账号"/>
+                    </div>
+                    <div id = "name1"></div>
+                </div>
+                
+                <div class="password">
+                	<div class="passwordinner">
+                    	<input type="password" name="password" id="password" placeholder="密码"/>
+                    	
+                    </div>
+                    
+                   
+                </div>
+                
+            </form>
+            <button id="login">登录</button>
+        </div><!--loginboxinner-->
+    </div><!--loginbox-->
+
+
+</body>
+<!-- //Body -->
+<script src ="js/jquery-3.1.0.min.js" ></script>
+<script type="text/javascript" src = "js/jquerysession.js"></script>
+<script>
+$("#login").click(function(){
+	$.ajax({
+		url:'/login',
+		type:'post',
+		dataType:'json',
+		data:{'aname':$('#username').val(),'password':$('#password').val()},
+		success:function(data){
+			if(data.state){
+				admin = JSON.stringify(data.admin);//将json对象转换成json对符串
+				$.session.set('admin',admin);
+				window.location.href = "/admin/index.html";
+			}else{
+				window.location.href="/adminLogin.html";
+			}
+		}
+	});
+});
+
+
+</script>
+
+</html>
+

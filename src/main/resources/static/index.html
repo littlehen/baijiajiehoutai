@@ -1,124 +1,130 @@
 
 <!DOCTYPE html>
-<html>
-
-<!-- Head -->
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>木木钱包登录页面</title>
+<link rel="stylesheet" href="loginHtml/css/style.default.css" type="text/css" />
+<script type="text/javascript" src="loginHtml/js/plugins/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="loginHtml/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="loginHtml/js/plugins/jquery.cookie.js"></script>
+<script type="text/javascript" src="loginHtml/js/plugins/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="loginHtml/js/custom/general.js"></script>
+<script type="text/javascript" src="loginHtml/js/custom/index.js"></script>
 
-	<title>登录表单</title>
+<style type="text/css">
+a:link { 
+color:#87CEFF; 
+text-decoration:underline; 
+} 
+a:visited { 
+color:#0000FF; 
+text-decoration:none; 
+} 
+a:hover { 
+color:#FF00FF; 
+text-decoration:none; 
+} 
+a:active { 
+color:#D200D2; 
+text-decoration:none; 
+} 
 
-	<!-- Meta-Tags -->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-	<!-- //Meta-Tags -->
-
-	<!-- Style --> <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-
-
-
+.nini {
+a:link { 
+color:#87CEFF; 
+text-decoration:underline; 
+} 
+a:visited { 
+color:#0000FF; 
+text-decoration:none; 
+} 
+a:hover { 
+color:#FF00FF; 
+text-decoration:none; 
+} 
+a:active { 
+color:#D200D2; 
+text-decoration:none; 
+}
+}
+</style>
 </head>
 <!-- //Head -->
 
 <!-- Body -->
-<body>
+<body class="loginpage">
+	<div class="loginbox">
+    	<div class="loginboxinner">
+        	
+            <div class="logo">
+            	<h1 class="logo">木木<span>钱包</span></h1>
+				<span class="slogan">后台管理系统</span>
+            </div><!--logo-->
+            
+            <form  action="#" method="post">
+            	
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="username" id="code" placeholder="用户账号"/>
+                    </div>
+                    <div id = "name1"></div>
+                </div>
+                
+                <div class="password">
+                	<div class="passwordinner">
+                    	<input type="password" name="password" id="bpassword" placeholder="密码"/>
+                    	
+                    </div>
+                    
+                   
+                </div>
+                
+            </form>
+             <button id="blogin">登录</button>
+            
+             <div class="keep" >
+             	<div style="float:left;">未入驻？<a href="#" onclick="tiaoruzhu();">请点这里</a></div>
+             	<div  style="float:right;" class="nini"><a href="#" onclick="tiaoAdmin();">管理员登录</a></div>
+             </div>
+             
+            
+        </div><!--loginboxinner-->
+    </div><!--loginbox-->
 
-	<h1>木木钱包后台管理系统</h1>
-
-	<div class="container w3layouts agileits">
-
-		<div  style="float:left; width:45%;">
-			<h2>管理员登录</h2>
-				<input type="text" Name="aname" id = "aname" placeholder="用户名" required="">
-				<input type="password" Name="password" id = "password" placeholder="密码" required="">
-		
-			<ul class="tick w3layouts agileits">
-				
-			</ul>
-			<div class="send-button w3layouts agileits">
-				
-					<input type="submit" id = "login" value="登 录">
-				
-			</div>
-			
-			<div class="clear"></div>
-		</div>
-		<div  style="float:right; width:45%;">
-			<h2>商家登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-				<input type="text" Name="code" id = "code" placeholder="用户名" required="">
-				<input type="password" Name="bpassword" id = "bpassword" placeholder="密码" required="">
-		
-			<ul class="tick w3layouts agileits">
-			
-			</ul>
-			<div class="send-button w3layouts agileits">
-				
-					<input type="submit" id = "blogin" value="登 录">
-				<button  onclick="tiaoruzhu()" style="background-color: #008CBA;border: none;color: white;padding:5px 12px;text-align: center;text-decoration: none;display: inline-block;font-size: 8px;">未入驻，点击入驻</button>
-			</div>
-			
-			<div class="clear"></div>
-		</div>
-		
-
-		<div class="clear"></div>
-	<div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
-	</div>
-	
-
-	<div class="footer w3layouts agileits">
-		<p>Copyright &copy; 木木钱包-2018 </p>
-	</div>
 
 </body>
 <!-- //Body -->
 <script src ="js/jquery-3.1.0.min.js" ></script>
 <script type="text/javascript" src = "js/jquerysession.js"></script>
 <script>
-	$("#login").click(function(){
-		$.ajax({
-			url:'/login',
-			type:'post',
-			dataType:'json',
-			data:{'aname':$('#aname').val(),'password':$('#password').val()},
-			success:function(data){
-				if(data.state){
-					admin = JSON.stringify(data.admin);//将json对象转换成json对符串
-					$.session.set('admin',admin);
-					window.location.href = "/admin/index.html";
-				}else{
-					alert("账号或密码错误，请重新输入");
-					window.location.href="/index.html";
-				}
+
+$("#blogin").click(function(){
+	$.ajax({
+		url:'/blogin',
+		type:'post',
+		dataType:'json',
+		data:{'code':$('#code').val(),'bpassword':$('#bpassword').val()},
+		success:function(data){
+			if(data.state){
+				business = JSON.stringify(data.business);//将json对象转换成json对符串
+				$.session.set('business',business);
+				window.location.href = "/business/index.html";
+			}else{
+				alert("账号或密码错误，请重新输入");
+				window.location.href="/index.html";
 			}
-		});
-	});
-	$("#blogin").click(function(){
-		$.ajax({
-			url:'/blogin',
-			type:'post',
-			dataType:'json',
-			data:{'code':$('#code').val(),'bpassword':$('#bpassword').val()},
-			success:function(data){
-				if(data.state){
-					business = JSON.stringify(data.business);//将json对象转换成json对符串
-					$.session.set('business',business);
-					window.location.href = "/business/index.html";
-				}else{
-					alert("账号或密码错误，请重新输入");
-					window.location.href="/index.html";
-				}
-			}
-		});
-	});
-	
-	
-	function tiaoruzhu(){
-		window.location.href="/business/reg.html";
 		}
+	});
+});
 
+function tiaoruzhu(){
+	window.location.href="/business/reg.html";
+}
 
+function tiaoAdmin(){
+	window.location.href="/adminLogin.html";
+}
 </script>
 
 </html>

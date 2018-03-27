@@ -37,11 +37,14 @@
 	         		<th field="jiedaibao" width="50">是否有借贷宝</th>        		
 	         		<th field="qq" width="50">QQ</th>
 	         		<th field="zhima" width="50">芝麻信用分</th>
+	         		<th field="source" width="50">来源</th>
+	         		<th field="shenqingshijian" width="50">申请时间</th>
 	         	</tr>
 	         </thead>
 	         <div id="toolbar">
 		         <div>
 		         	<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
+		         	<a href="#" class = "easyui-linkbutton" iconCls="icon-save" onclick="exportDan()">导出为excel</a>
 		         </div>
 	         	<div>
 	         		<span>手机号码</span>
@@ -147,5 +150,10 @@ $(function(){
 			}
 		});
 	}
+	
+	function exportDan(){
+		location.href="/exportDan/"+business.code;
+	}
+	
 </script>
 </html>

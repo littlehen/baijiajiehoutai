@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>享来介后台管理系统</title>
+<title>木木钱包后台管理系统</title>
 
 <script type="text/javascript" src="/../js/jquery.min.js"></script>
 <script type="text/javascript" src = "/../js/jquerysession.js"></script>
@@ -19,7 +19,7 @@
 <div class= "container-fluid">
 		<div class="row">
 		<div  class="col-sm-12 col-md-12 main">
-<table id="dg" class="easyui-datagrid" style="width:auto;height:auto"
+<table id="dg4" class="easyui-datagrid" style="width:auto;height:auto"
 	         url="/Searchshen"
 	         toolbar="#toolbar"
 	         rownumbers="true" fitColumns="true" singleSelect="true" checkOnSelect="true"
@@ -41,7 +41,7 @@
 	         <div id="toolbar">
 	         	<div>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUserBusiness()">发放货币</a>
-	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUserBusiness()">刷新</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUserBusi()">刷新</a>
 	         	</div>
 	         	<div>
 	         		<span>商家账号</span>
@@ -51,7 +51,7 @@
 	         </div>	
 	</table>
 	
-	<div id="dlg" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+	<div id="dlg4" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
 	closed="true" buttons="#dlg-buttons">
 		<div class="ftitle"> 商家信息</div>
 		<form id="fm" method="post" novalidate>
@@ -98,7 +98,7 @@
 		</form>
 		<div id="dlg-buttons">
 			<a href="#" class="easyui-linkbutton" onclick="saveBusiness()">确定</a>
-			<a href="#" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+			<a href="#" class="easyui-linkbutton" onclick="javascript:$('#dlg4').dialog('close')">取消</a>
 		</div> 
 	</div>
 	</div>
@@ -112,9 +112,13 @@
 
 	var url;
 	function doSearch(){
-		$('#dg').datagrid('load',{
+		$('#dg4').datagrid('load',{
 			code:$('#code').val(),
 		});
+	}
+	
+	function reloadUserBusi(){
+		 doSearch();
 	}
 	
 	function editUserBusiness(){
@@ -122,9 +126,9 @@
 		var admin;
 		adminj = $.session.get('admin');
 		admin = $.parseJSON( adminj );
-		var row = $('#dg').datagrid('getSelected');
+		var row = $('#dg4').datagrid('getSelected');
 		if(row){
-			$('#dlg').dialog('open').dialog('setTitle','商家信息');
+			$('#dlg4').dialog('open').dialog('setTitle','商家信息');
 			$('#fm').form('load',row);
 			url='/edithuobi/'+admin.aname;
 		}
@@ -139,13 +143,16 @@
 			},
 			success: function(result){	
 				var result1 = eval('('+result+')');
-					if(result1.state=="货币发放成功")
+					if(result1.state=="货币发放成功"){
 						alert("货币发放成功");
+						$('#dlg4').dialog('close');
+					}
 					if(result1.state=="货币发放失败")
 						alert("货币发放失败");
 				
 			}
 		});
 	}
+	
 </script>
 </html>

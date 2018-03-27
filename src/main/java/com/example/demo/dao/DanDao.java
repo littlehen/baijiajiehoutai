@@ -21,5 +21,8 @@ public interface DanDao extends CrudRepository<Dan,Integer>{
 	@Modifying
 	@Query(nativeQuery = true,value = "SELECT   *   FROM   DAN   WHERE  code=?1 and phone=?2")  
 	List<Dan> findByMyCodeAndPhone(String code, String phone);
-
+	
+	@Modifying
+	@Query(nativeQuery = true,value = "SELECT   *   FROM   DAN   WHERE  code=?1")  
+	List<Dan> findByMyCode(String code);
 }

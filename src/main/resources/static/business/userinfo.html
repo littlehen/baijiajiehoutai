@@ -20,33 +20,30 @@
 <div class= "container-fluid">
 		<div class="row">
 		<div  class="col-sm-12 col-md-12 main">
-<table id="dg" class="easyui-datagrid" style="width:auto;height:auto"
+<table id="dg2" class="easyui-datagrid" style="width:auto;height:auto"
 	         toolbar="#toolbar"
-	         rownumbers="true" fitColumns="true" singleSelect="true" checkOnSelect="true"
+	         rownumbers="true" fitColumns="true"  
 	         pagination="true" >
 	         <thead>
 	         	<tr>
 	         		<th field="ck" checkbox="true"></th>
 	         		<th field="name" width="50">名字</th>
-	         		<th field="zhima" width="50">芝麻分</th>
-	         		<th  field="phone"  formatter="formatDatebox"  width="50">手机号码</th>
-	         	
+	         		<th field="zhima" width="50" >芝麻分</th>
+	         		<th  field="phone"  formatter="formatDatebox"  width="50" >手机号码</th>
+	         		<th field="source" width="50" >来源</th>
+	         		<th field="shenqingshijian" width="50" >申请时间</th>
+	         		<th field="opt" width="50" align="center" formatter="Chaozuo">操作</th>
 	         	</tr>
 	         </thead>
 	         <div id="toolbar">
 	         	<div>
-	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">查看该用户信息</a>
 	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a>
-	         	</div>
-	         	<div>
-	         		<span>手机号码</span>
-	         		<input id = "phone" style="line-height:26px;border:1px solid #ccc">
-	         		<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onClick="doSearch()">用户查找</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-add" plain="true" onclick="buyAll()">选中购买</a>
 	         	</div>
 	         </div>	
 	</table>
 	
-	<div id="dlg" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+	<div id="dlg2" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
 	closed="true" buttons="#dlg-buttons">
 		<form id="fm" method="post" novalidate>
 			<div style="margin-top:10px">
@@ -94,7 +91,7 @@
 		</form>
 		<div id="dlg-buttons">
 		<a href="#" class = "easyui-linkbutton" onclick="seeUser()">购买该用户信息</a>
-			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg').dialog('close')">取消</a>
+			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg2').dialog('close')">取消</a>
 			
 		</div> 
 	</div>
@@ -114,7 +111,7 @@ business = $.parseJSON( businessj );
 
 $(function(){
 		
-		$('#dg').datagrid({
+		$('#dg2').datagrid({
 			url:"/buserlist",
 			queryParams: {
 				code:business.code,
@@ -123,7 +120,90 @@ $(function(){
 	
 });		
 
+function Chaozuo(val,row,index){
+	var btn =	'<a  href="#"   onclick="showInfo('+index+'); ">查看</a>&nbsp;&nbsp;|'; 
+	btn += '&nbsp;&nbsp<a href="#" color=\'#000000\'  onclick="BuyInfo('+index+');">购买</a>';
+    return btn;
+}
 
+function showInfo(index){
+	 var rows = $('#dg2').datagrid('getRows');
+	  var row = rows[index];
+	if(row){
+		$('#dlg2').dialog('open').dialog('setTitle','用户信息');
+		$('#fm').form('load',row);	
+	}
+			var value = $("#formatphonebox").val();
+			
+		    var  s=value.substring(0,3)+"***"+value.substring(9,11);
+		    $("#formatphonebox").val(s);
+		    
+			var value1 = $("#formatqqbox").val();
+			
+		    var  s1=value1.substring(0,3)+"***"+value1.substring(9,11);
+		    $("#formatqqbox").val(s1);
+}
+
+function BuyInfo(index){
+	 var rows = $('#dg2').datagrid('getRows');
+	 var row = rows[index];
+	 $.ajax({
+			url:'/ifhuobi',
+			type:'post',
+			dataType:'json',
+			data:{'code':business.code,'phone':row.phone},
+			success:function(data){
+				if(data.state == 1){
+					alert("购买成功！");
+					<!--$.messager.confirm('温馨提示','此操作将使用一个币，确定购买此用户吗?',function(r){-->
+					<!--if (r){-->
+					<!--}-->
+					<!--}); -->   
+				}else if(data.state == 0){
+					$.messager.alert("提示", "货币不足！", "info"); 
+				}else if(data.state == 2){
+					alert("已经购买过此用户!");
+				}
+			}
+		});
+}
+
+function buyAll(){
+	var row = $('#dg2').datagrid('getSelections');
+	if (row.length==0){ 
+        $.messager.alert("提示", "请选择要购买的信息行！", "info"); 
+        return; 
+    }else{
+    	var phone = "";
+    	
+    	for(var i = 0; i<row.length;i++){
+    		if(phone == ""){
+    			phone = row[i].phone;
+    		}else{
+    			phone = row[i].phone +"," + phone;
+    		}
+    	}
+    	
+    	$.ajax({
+			url:'/buyInfo',
+			type:'post',
+			dataType:'json',
+			data:{'code':business.code,'phone':phone},
+			success:function(data){
+				if(data.state == 1){
+					alert("购买成功！");
+					<!--$.messager.confirm('温馨提示','此操作将使用一个币，确定购买此用户吗?',function(r){-->
+					<!--if (r){-->
+					<!--}-->
+					<!--}); -->
+				}else if(data.state == 0){
+					alert("货币不足,请充值!");
+				}
+			}
+		});
+    	
+    }
+}
 
 function formatDatebox(value) {    
     if (value == null || value == '') {    
@@ -135,17 +215,11 @@ function formatDatebox(value) {
 }    
 	
 	var url;
-	function doSearch(){
-		$('#dg').datagrid({
-         url:'/user/phone/'+$('#phone').val()
-         
-     });
-	}
 	
 	function editUser(){
-		var row = $('#dg').datagrid('getSelected');
+		var row = $('#dg2').datagrid('getSelected');
 		if(row){
-			$('#dlg').dialog('open').dialog('setTitle','用户信息');
+			$('#dlg2').dialog('open').dialog('setTitle','用户信息');
 			$('#fm').form('load',row);	
 		}
 				var value = $("#formatphonebox").val();
@@ -157,10 +231,10 @@ function formatDatebox(value) {
 				
 			    var  s1=value1.substring(0,3)+"***"+value1.substring(9,11);
 			    $("#formatqqbox").val(s1);
-			}
+	}
 	
 	function seeUser(){
-		var row1 = $('#dg').datagrid('getSelected');
+		var row1 = $('#dg2').datagrid('getSelected');
 		a = row1.phone;
 		$.ajax({
 			url:'/ifhuobi',
@@ -174,10 +248,6 @@ function formatDatebox(value) {
 					<!--if (r){-->
 					<!--}-->
 					<!--}); -->
-					    
-					    	
-							    
-					
 				}else if(data.state == 0){
 					alert("货币不足!");
 				}else if(data.state == 2){
@@ -188,7 +258,7 @@ function formatDatebox(value) {
 	}
 	
 	function reloadUser(){
-		$('#dg').datagrid({
+		$('#dg2').datagrid({
 			url:"/buserlist",
 			queryParams: {
 				code:business.code,
@@ -202,6 +272,8 @@ function formatDatebox(value) {
 	    }  
 
 	}   -->
+	
+	
 </script>
 </html>
 

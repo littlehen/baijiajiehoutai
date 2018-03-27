@@ -2,12 +2,13 @@ package com.example.demo.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Dan {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer did;
 	
 	private String code;
@@ -41,6 +42,26 @@ public class Dan {
 	private Float edu;
 	
 	private Integer day;
+	
+	private String shenqingshijian;
+	
+	private String source;
+
+	public String getShenqingshijian() {
+		return shenqingshijian;
+	}
+
+	public void setShenqingshijian(String shenqingshijian) {
+		this.shenqingshijian = shenqingshijian;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
 
 	public String getCode() {
 		return code;

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>木木钱包后台管理系统</title>
+
+<script type="text/javascript" src="/../js/jquery.min.js"></script>
+<script type="text/javascript" src = "/../js/jquerysession.js"></script>
+<script type="text/javascript" src="/../js/jquery.easyui.min.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/../js/themes/default/easyui.css">
+<link rel="stylesheet" href="/../js/themes/icon.css" />
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/index.css" rel="stylesheet">
+<link href="../css.style.css" rel="stylesheet">
+<script type="text/javascript" src="/../js/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div class= "container-fluid">
+		<div class="row">
+		<div  class="col-sm-12 col-md-12 main">
+	<table id="dg1" class="easyui-datagrid" style="width:auto;height:auto"
+	         toolbar="#toolbar"
+	         rownumbers="true" fitColumns="true" 
+	         pagination="true" >
+	         <thead>
+	         	<tr>
+	         		<th field="hid" width="50">网页编号</th>
+	         		<th field="title" width="50">Title</th>
+	         		<th field="url" width="50">Url</th>
+	         	</tr>
+	         </thead>
+	         <div id="toolbar">
+	         	<div>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addHtml()">增加</a>
+	         		<a href="#" class = "easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reloadHtml()">刷新</a>
+	         	</div>
+	         </div>
+	</table>
+	<div id="dlg1" class="easyui-dialog" style="width:800px;height:600px;padding:10px 20px"
+		closed="true" buttons="#dlg-buttons">
+		<div class="ftitle"> 网页信息</div>
+		<form id="fm" action="#" method="post" enctype="multipart/form-data" novalidate>
+			<div style="margin-top:10px" class="fitem">
+				<lable style="width:300px;float:left;text-align:right;">Title:</lable>
+				<input style="width:200px" name="title" id="titl" class="easyui-validatebox">
+			</div>
+			<div style="margin-top:10px">
+				<lable style="width:300px;float:left;text-align:right;">背景:</lable>
+				<input type="file" "width:200px" name="iamge" />
+			</div>
+		</form>
+		<img id="image" src="">
+		<div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton"  onclick="saveHtml()">确定</a>
+			<a href="#" class="easyui-linkbutton"  onclick="javascript:$('#dlg1').dialog('close')">取消</a>
+		</div> 
+	</div>	  
+	</div>
+	</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+var adminj;
+var admin;
+adminj = $.session.get('admin');
+admin = $.parseJSON( adminj );
+
+$(function(){
+	$('#dg1').datagrid({
+		url:"/urllist",
+		queryParams: {
+			admin:admin.aname
+		}
+	});	
+});
+
+function Copy(val,row,index){
+	var btn =	'<p onclick="copyText('+index+')">复制链接</button><textarea id="input" hidden>这是幕后黑手</textarea> '; 
+    return btn;
+}
+
+function copyText(index) {
+	
+ }
+function addHtml(){
+		$('#dlg1').dialog('open').dialog('setTitle','网页信息');
+		$('#fm').form('load',null);
+}
+function saveHtml(){
+	var tit = document.getElementById("titl");
+	var text = tit.value;
+	if(text == ""){
+		alert("网页Title不能为空,请重新填写");
+		return false;
+	}
+	$('#fm').form('submit',{
+		url:'/newHtml',
+		onSubmit:function(){
+			return $(this).form('validate');
+		},
+		success: function(result){
+			//var result = eval('('+result+')');
+			$('#dlg1').dialog('close');		// close the dialog	
+			reloadHtml();
+		}
+	});
+}
+	
+function reloadHtml(){
+	$('#dg1').datagrid({
+		url:"/urllist",
+		queryParams: {
+			admin:admin.aname
+		}
+	});
+}
+	</script>
+</html>

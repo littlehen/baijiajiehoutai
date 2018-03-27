@@ -28,5 +28,7 @@ public interface UserDao extends CrudRepository<User,Integer>{
 	@Modifying
 	@Query(nativeQuery = true,value = "delete  from dan where phone = ?1")
 	void delete1(String phone);
+	
+	
 
 }

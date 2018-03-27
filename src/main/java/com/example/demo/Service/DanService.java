@@ -28,7 +28,58 @@ public class DanService {
 	
 	@Autowired
 	UserDao userDao;
+	
+	@SuppressWarnings({ "null", "unlikely-arg-type" })
+	public Map<String,Object> buyInfo(String code,String phone){
+		Map<String,Object> map = new HashMap<>();
+		Business business = businessDao.findByCode(code);
+		String[] Ph = phone.split(",");
+		int huobi = business.getHuobi();
+		if(business.getHuobi() >= Ph.length) {
+			for(int i = 0;i < Ph.length;i++) {
+				Dan dan = danDao.findByCodeAndPhone(code,Ph[i]);
+				List<User> user = userDao.findByPhone(Ph[i]);
+				if(dan == null) {
+					huobi--;
+					business.setHuobi(huobi);
+					businessDao.save(business);
+					dan.setCode(business.getCode());
+					if(user.get(0).getAddress() !=null && !"".equals(user.get(0).getAddress()))
+						dan.setAddress(user.get(0).getAddress());
+					if(user.get(0).getAge() !=null && !"".equals(user.get(0).getAge()))
+						dan.setAge(user.get(0).getAge());
+					dan.setDay(3);
+					if(user.get(0).getEdu() !=null && !"".equals(user.get(0).getEdu()))
+						dan.setEdu(user.get(0).getEdu());
+					if(user.get(0).getFuzhai()!=null && !"".equals(user.get(0).getFuzhai()))
+						dan.setFuzhai(user.get(0).getFuzhai());
+					if(user.get(0).getHuabei() !=null && !"".equals(user.get(0).getHuabei()))
+						dan.setHuabei(user.get(0).getHuabei());
+					if(user.get(0).getJiedaibao() !=null && !"".equals(user.get(0).getJiedaibao()))
+						dan.setJiedaibao(user.get(0).getJiedaibao());
+					if(user.get(0).getName() !=null && !"".equals(user.get(0).getName()))
+						dan.setName(user.get(0).getName());
+					if(user.get(0).getPhone()!=null && !"".equals(user.get(0).getPhone()))
+						dan.setPhone(user.get(0).getPhone());
+					if(user.get(0).getZhima()!=null && !"".equals(user.get(0).getZhima()))
+						dan.setZhima(user.get(0).getZhima());
+					if(user.get(0).getQq() !=null && !"".equals(user.get(0).getQq()))
+						dan.setQq(user.get(0).getQq());
+					if(user.get(0).getSource()!=null && !"".equals(user.get(0).getSource()))
+						dan.setSource(user.get(0).getSource());
+					if(user.get(0).getShenqingshijian()!=null && !"".equals(user.get(0).getShenqingshijian()))
+						dan.setSource(user.get(0).getShenqingshijian());
+					danDao.save(dan);
+				}
+			}
+			map.put("state", 1);//此操作将使用一个币
+		}else {
+			map.put("state", 0);//币不足
+		}
+		return map;
+	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	public Map<String,Object> ifhuobi(String code,String phone) {
 		Map<String,Object> map = new HashMap<>();
 		Business business = businessDao.findOne(code);
@@ -41,18 +92,32 @@ public class DanService {
 				huobi--;
 				business.setHuobi(huobi);
 				businessDao.save(business);
-				dan.setAddress(user.get(0).getAddress());
-				dan.setAge(user.get(0).getAge());
+				dan.setCode(business.getCode());
+				if(user.get(0).getAddress() !=null && !"".equals(user.get(0).getAddress()))
+					dan.setAddress(user.get(0).getAddress());
+				if(user.get(0).getAge() !=null && !"".equals(user.get(0).getAge()))
+					dan.setAge(user.get(0).getAge());
 				dan.setDay(3);
-				dan.setEdu(user.get(0).getEdu());
-				dan.setFuzhai(user.get(0).getFuzhai());
-				dan.setHuabei(user.get(0).getHuabei());
-				dan.setJiedaibao(user.get(0).getJiedaibao());
-				dan.setName(user.get(0).getName());
-				dan.setPhone(user.get(0).getPhone());
-				dan.setZhima(user.get(0).getZhima());
-				dan.setQq(user.get(0).getQq());
-				dan.setCode(code);
+				if(user.get(0).getEdu() !=null && !"".equals(user.get(0).getEdu()))
+					dan.setEdu(user.get(0).getEdu());
+				if(user.get(0).getFuzhai()!=null && !"".equals(user.get(0).getFuzhai()))
+					dan.setFuzhai(user.get(0).getFuzhai());
+				if(user.get(0).getHuabei() !=null && !"".equals(user.get(0).getHuabei()))
+					dan.setHuabei(user.get(0).getHuabei());
+				if(user.get(0).getJiedaibao() !=null && !"".equals(user.get(0).getJiedaibao()))
+					dan.setJiedaibao(user.get(0).getJiedaibao());
+				if(user.get(0).getName() !=null && !"".equals(user.get(0).getName()))
+					dan.setName(user.get(0).getName());
+				if(user.get(0).getPhone()!=null && !"".equals(user.get(0).getPhone()))
+					dan.setPhone(user.get(0).getPhone());
+				if(user.get(0).getZhima()!=null && !"".equals(user.get(0).getZhima()))
+					dan.setZhima(user.get(0).getZhima());
+				if(user.get(0).getQq() !=null && !"".equals(user.get(0).getQq()))
+					dan.setQq(user.get(0).getQq());
+				if(user.get(0).getSource()!=null && !"".equals(user.get(0).getSource()))
+					dan.setSource(user.get(0).getSource());
+				if(user.get(0).getShenqingshijian()!=null && !"".equals(user.get(0).getShenqingshijian()))
+					dan.setShenqingshijian(user.get(0).getShenqingshijian());
 				danDao.save(dan);
 				map.put("state", 1);//此操作将使用一个币
 			}
@@ -123,6 +188,10 @@ public class DanService {
 		    map.put("pageSize", 10);
 		    map.put("rows",list);
 		return map;
+	}
+	
+	public List<Dan> Danlist(String code){
+		return danDao.findByMyCode(code);
 	}
 
 }
