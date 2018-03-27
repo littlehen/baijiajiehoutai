@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.Service.HtmlService;
 
 @RestController
-public class HtmlController {
+public class  HtmlController {
 	private static final Logger log = LoggerFactory.getLogger(HtmlController.class);  
 	@Resource
 	HtmlService htmlService;
