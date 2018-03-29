@@ -142,7 +142,7 @@ public class HtmlService {
 //            templateContent = new String(bytes);
 			
  //           String fn = new String(fileName.getBytes("gbk"),"utf-8");
-            templateContent = templateContent.replaceAll("<title>借款申请</title>", "<title>"+fileName+"</title>").replaceAll("charset=UTF-8", "charset=gbk");;
+            templateContent = templateContent.replaceAll("<title>借款申请</title>", "<title>"+fileName+"</title>");
             if(img != null && !"".equals(img)) {											
             	templateContent = templateContent.replaceAll("/firstPic.png", "/"+img);
             }
