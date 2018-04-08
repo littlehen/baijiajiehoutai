@@ -25,10 +25,11 @@
 	         pagination="true" >
 	         <thead>
 	         	<tr>
-	         		<th field="hid" width="50">网页编号</th>
-	         		<th field="title" width="50">Title</th>
-	         		<th field="url" width="50">Url</th>
-	         		
+	         		<th field="hid" width="20">网页编号</th>
+	         		<th field="title" width="30">Title</th>
+	         		<th field="url" width="100">Url</th>
+	         		<th field="count" width="50">账号</th>
+	         		<th field="password" width="50">密码</th>
 	         	</tr>
 	         </thead>
 	         <div id="toolbar">
@@ -78,11 +79,17 @@ $(function(){
 	});	
 });
 
-//function copy(val,row,index){
-	//var btn ='<span class="icon_Modify"><a href="#none"  id="class-copy">复制</a> </span>'; 
-    //return btn;
-//}
+function copy(val,row,index){
+	var btn ='<span class="icon_Modify"><a href="#none"  onclick="copyurl();">复制</a> </span>'; 
+    return btn;
+}
 //<th field="opt" width="50" align="center" formatter="copy">操作</th>
+
+function copyurl(){
+	alert("123");
+	copyToClipboard(value);
+	alert("复制成功！");
+}
 function addHtml(){
 		$('#dlg1').dialog('open').dialog('setTitle','网页信息');
 		$('#fm').form('load',null);

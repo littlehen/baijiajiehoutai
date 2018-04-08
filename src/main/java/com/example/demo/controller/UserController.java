@@ -152,9 +152,9 @@ public class UserController {
 	
 	//houtaiadd  -- h5
 	@RequestMapping("/Laiqian")
-	public Map<String,Object> Laiqian(String name,String IdCard,String money,String phone,String qq,String 	wxnumber,String zhima){
+	public Map<String,Object> Laiqian(String name,String IdCard,String money,String phone,String qq,String 	wxnumber,String zhima,String source){
 		
-		return userService.Laiqian(name, IdCard, money, phone, qq, wxnumber, zhima);
+		return userService.Laiqian(name, IdCard, money, phone, qq, wxnumber, zhima,source);
 	}
 	
 	@RequestMapping("/yanzheng")

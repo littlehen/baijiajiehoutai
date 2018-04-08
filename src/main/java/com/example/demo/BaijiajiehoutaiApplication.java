@@ -8,14 +8,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class BaijiajiehoutaiApplication extends SpringBootServletInitializer 
+public class BaijiajiehoutaiApplication// extends SpringBootServletInitializer
 {
-	
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(BaijiajiehoutaiApplication.class);
-    
-	}
+//
+//	@Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return application.sources(BaijiajiehoutaiApplication.class);
+//
+//	}
 	public static void main(String[] args) {
 		SpringApplication.run(BaijiajiehoutaiApplication.class, args);
 	}

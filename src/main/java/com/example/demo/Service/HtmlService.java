@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.dao.BusinessDao;
 import com.example.demo.dao.HtmlDao;
 import com.example.demo.model.Html;
 
@@ -27,6 +28,9 @@ public class HtmlService {
 	
 	@Autowired
 	HtmlDao htmlDao;
+	
+	@Autowired
+	BusinessDao businessDao;
 	
 	public  Map<String,Object> urllist(String admin,Integer page,Integer rows){
 		Map<String,Object> map = new HashMap<>();
@@ -57,7 +61,7 @@ public class HtmlService {
 		//上传照片,保存
 		if(!file.isEmpty()) {
 			try {
-				Resource resource = new ClassPathResource("static/new_html/assets/images");
+				Resource resource = new ClassPathResource("static/new_html/assets/images"); //选择保存
 				if(resource.exists()) {
 					String im = URLDecoder.decode(resource.getURL().getPath(), "UTF-8");
 					imagePath = URLDecoder.decode(file.getOriginalFilename(), "UTF-8");
@@ -96,7 +100,7 @@ public class HtmlService {
   //          String fn = new String(fileName.getBytes("gbk"),"utf-8");
             templateContent = templateContent.replaceAll("<title>借款申请</title>", "<title>"+fileName+"</title>"); 
             templateContent = templateContent.replaceAll("shenqing.htm", fileName + ".htm");
-            templateContent = templateContent.replaceAll("shenqingneirong.htm", fileName+"-2.htm");
+            templateContent = templateContent.replaceAll("shenqingneirong.htm", fileName+"-2.htm").replace("借款申请", fileName);
            
             if(img != null && !"".equals(img)) {
             	templateContent = templateContent.replaceAll("/firstPic.png", "/"+img);
@@ -115,6 +119,13 @@ public class HtmlService {
             
             html.setTitle(fileName);
             html.setUrl("http:/www.juhuaihua.cn:8082/new_html/"+fileName+".htm");
+            int x=(int)(Math.random()*1000000)+100000;
+            int y=(int)(Math.random()*100000)+100000;
+            while(htmlDao.findByCount(x+"") != null && businessDao.findOne(x+"") != null) {
+            	x=(int)(Math.random()*1000000)+100000;
+            }
+            html.setCount(x+"");
+            html.setPassword(y+"");
             htmlDao.save(html);
             url = "/new_html/html.html";
         } catch (Exception e) {
@@ -144,7 +155,7 @@ public class HtmlService {
  //           String fn = new String(fileName.getBytes("gbk"),"utf-8");
             templateContent = templateContent.replaceAll("<title>借款申请</title>", "<title>"+fileName+"</title>");
             if(img != null && !"".equals(img)) {											
-            	templateContent = templateContent.replaceAll("/firstPic.png", "/"+img);
+            	templateContent = templateContent.replaceAll("/firstPic.png", "/"+img).replaceAll("借款申请", fileName);
             }
             
             String filename = fileName + "-2.htm";

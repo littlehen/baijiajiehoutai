@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>木木钱包后台管理系统</title>
+<link href="../css/adminlte.css" rel="stylesheet"  media="all">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/admin.css" rel="stylesheet"  media="all">
+</head>
+
+
+<body class="skin-blue sidebar-mini sidebar-collapse" style="">
+	   <div class="wrapper" style="background: transparent;">
+
+			<div class="dividert" style="background: -webkit-gradient(linear,left top,left bottom,from(#95B5D6),to(#819CB7));">
+
+				<div class="img"></div>
+				<ul class="nav navbar-nav navbar-right">
+		            <li ><a href="#">个人中心</a></li>
+		            <li><a href="#" >消息</a></li>
+		            <li class="dropdown">
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                   	通知<b class="caret"></b>
+		                </a>
+		                <ul class="dropdown-menu">
+		                    <li><a href="#">会议</a></li>
+		                    <li><a href="#">关于</a></li>
+		                    <li><a href="#">退出</a></li>
+		                </ul>
+		            </li>
+		        </ul>
+
+			</div>
+			<div class="content-wrapper" style="min-height: 880px; margin-left: 0px !important;">
+				<ul class="sub_menu" id="sub_menuko" type="base" style="height: 880px;">
+					<li data-id="1" class="treeview ">
+								<a data-close-others="true"> 数据信息 </a>
+								<div class="img_biao"></div>
+								<ul>
+									<li>
+												<a href="#"  onclick="tiaoshumu()">具体信息</a>
+											</li>
+								</ul>
+							</li>
+								
+				</ul>
+				<div id="content" style="padding:10px; padding-right: 50px; padding-left:0;padding-bottom:10px; left: 280px;position:absolute;right: 0;bottom: 0;top: 98px; overflow: auto">
+
+					
+				</div>
+
+			</div>
+			<!-- /.content-wrapper -->
+	
+	</div>
+	
+		<nav class="navbar nav-default navbar-fixed-bottom">
+					<div class="footer w3layouts agileits">
+						<p>Copyright &copy; 木木钱包-2018 </p>
+					</div>
+			</nav>
+	
+	
+	
+	
+</body>
+<script src ="../js/jquery-3.1.0.min.js" ></script>
+<script type="text/javascript" src ="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src = "../js/jquerysession.js"></script>
+<script >
+function tiaoshumu(){
+	$("#content").load('/new_html/checkrigth.html');
+}
+</script>
+
+</html>

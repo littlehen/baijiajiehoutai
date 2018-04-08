@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.AdministratorDao;
 import com.example.demo.dao.BusinessDao;
+import com.example.demo.dao.HtmlDao;
 import com.example.demo.dao.UserDao;
 import com.example.demo.model.Administrator;
 import com.example.demo.model.Business;
+import com.example.demo.model.Html;
 import com.example.demo.model.User;
 
 @Service
@@ -31,13 +33,15 @@ public class BusinessService {
 	@Autowired
 	UserDao userDao;
 	
+	@Autowired
+	HtmlDao htmlDao;
+	
 	
 	List<Business> Businesslist = new ArrayList<>();
 	
 	public Map<String,Object> businessAll(String qq,Integer rows,Integer page){
 		Map<String,Object> map = new HashMap<>();
 		Pageable pageable = new PageRequest(page-1,rows);
-		
 		if("".equals(qq) || qq == null) {
 			Page<Business> business = businessDao.findAll(pageable);
 			map.put("total", business.getTotalElements());
@@ -109,14 +113,24 @@ public class BusinessService {
 	public Map<String, Object> login(String code, String bpassword) {
 		Map<String,Object> map = new HashMap<>();
 		Business business = businessDao.findByCode(code);
-		if(business != null) {
+		Html html = htmlDao.findByCount(code);
+		if(business != null && html == null) {
 			if(business.getPassword().equals(bpassword)) {
 				map.put("state", true);
+				map.put("tiaozhuang", "business");
 				map.put("business", business);
 			}
 			else {
 				map.put("state", false);
 			}
+		}
+		else if(business== null && html != null) {
+			if(html.getPassword().equals(bpassword)) {
+				map.put("state", true);
+				map.put("tiaozhuang", "html");
+				map.put("html", html);
+			}else
+				map.put("state", false);
 		}
 		else
 			map.put("state", false);
@@ -181,6 +195,26 @@ public class BusinessService {
 			map.put("rows", null);
 		}else {
 			Page<User> list = userDao.findByShenhestate("审核通过",pageable);
+			map.put("total",list.getTotalElements()); //总条数
+		    map.put("pageNumber", list.getSize()); //10 20 ...
+		    map.put("pageSize", list.getTotalPages()); //总页数
+		    map.put("rows",list.getContent()); //内容
+		} 
+	    return map;
+	}
+	
+	public Map<String, Object> buserlist2(String code,Integer page, Integer rows) {
+		Map<String,Object> map = new HashMap<>();
+		Pageable pageable = new PageRequest(page-1,rows);
+		if(code == null||"".equals(code)) {
+			map.put("total", 0);
+			map.put("pageNumber", 0);
+			map.put("pageSize", 0);
+			map.put("rows", null);
+		}else {
+			Html html = htmlDao.findByCount(code);
+			System.out.println(html.getTitle());
+			Page<User> list = userDao.findBySource(html.getTitle(), pageable);
 			map.put("total",list.getTotalElements()); //总条数
 		    map.put("pageNumber", list.getSize()); //10 20 ...
 		    map.put("pageSize", list.getTotalPages()); //总页数

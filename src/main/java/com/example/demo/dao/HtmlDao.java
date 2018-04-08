@@ -9,4 +9,6 @@ import com.example.demo.model.User;
 
 public interface HtmlDao extends CrudRepository<Html,Integer>{
 	Page<Html> findAll(Pageable pageable);
+	
+	Html findByCount(String count);
 }

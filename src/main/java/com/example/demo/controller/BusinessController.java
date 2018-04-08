@@ -34,8 +34,6 @@ public class BusinessController {
 	List<Business> Businesslist = new ArrayList<>();
 	@RequestMapping("/blogin")
 	public Map<String,Object> login(String code,String bpassword) {
-		
-		System.out.println(code + "-------" + bpassword);
 		Businesslist = businessService.businessAl();
 		return businessService.login(code, bpassword);
 	}
@@ -92,6 +90,11 @@ public class BusinessController {
 	@PostMapping("/buserlist")
 	public Map<String,Object> buserlist(String code,Integer page,Integer rows){
 		return businessService.buserlist(code,page,rows);
+	}
+	
+	@RequestMapping("buserlist2")
+	public Map<String,Object> buserlist2(String code,Integer page,Integer rows){
+		return businessService.buserlist2(code,page,rows);
 	}
 	
 	@PostMapping("/findhuobivalue")

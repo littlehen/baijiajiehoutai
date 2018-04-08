@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>木木钱包后台管理系统</title>
+
+<script type="text/javascript" src="/../js/jquery.min.js"></script>
+<script type="text/javascript" src = "/../js/jquerysession.js"></script>
+<script type="text/javascript" src="/../js/jquery.easyui.min.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/../js/themes/default/easyui.css">
+<link rel="stylesheet" href="/../js/themes/icon.css" />
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/index.css" rel="stylesheet">
+<link href="../css.style.css" rel="stylesheet">
+<script type="text/javascript" src="/../js/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div class= "container-fluid">
+		<div class="row">
+		<div  class="col-sm-12 col-md-12 main">
+<table id="dg9" class="easyui-datagrid" style="width:auto;height:auto"
+	         toolbar="#toolbar"
+	         rownumbers="true" fitColumns="true"  
+	         pagination="true" >
+	         <thead>
+	         	<tr>
+	         		<th field="ck" checkbox="true"></th>
+	         		<th field="name" width="50">名字</th>
+	         		<th field="zhima" width="50" >芝麻分</th>
+	         		<th  field="phone"width="50" >手机号码</th>
+	         		<th field="source" width="50" >来源</th>
+	         		<th field="shenqingshijian" width="50" >申请时间</th>
+	         	</tr>
+	         </thead>
+	</table>
+	</div>
+	</div>
+	</div>
+
+    
+</body>
+<script >
+var businessj;
+var business;
+businessj = $.session.get('html');
+business = $.parseJSON( businessj);
+$(function(){
+		
+		$('#dg9').datagrid({
+			url:"/buserlist2",
+			queryParams: {
+				code:business.count,
+			}
+		});
+	
+});	
+
+</script>
+</html>

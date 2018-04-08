@@ -250,7 +250,7 @@ public class UserService {
 	
 	
 	//houtaiadd  -- h5 
-	public Map<String,Object> Laiqian(String name,String IdCard,String money,String phone,String qq,String 	wxnumber,String zhima){
+	public Map<String,Object> Laiqian(String name,String IdCard,String money,String phone,String qq,String 	wxnumber,String zhima,String source){
 		User  user = new User();
 		Map<String,Object> map = new HashMap<>();
 		if(name != null && !"".equals(name))
@@ -267,6 +267,8 @@ public class UserService {
 			user.setWxnumber(wxnumber);
 		if(zhima != null && !"".equals(zhima))
 			user.setZhima(Float.parseFloat(zhima));
+		if(source != null && !"".equals(source))
+			user.setSource(source);
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 		 Date date = new Date();
 		 String shenqingdate = sdf.format(date);
@@ -281,7 +283,6 @@ public class UserService {
 		Map<String,Object> map = new HashMap<>();
 		int random=(int)(Math.random()*10000);
 		String a = Api.Sendinfo(mobile, random);
-		System.out.println(a);
 		map.put("mama", random);
 		return map;
 		

@@ -25,6 +25,8 @@ public interface UserDao extends CrudRepository<User,Integer>{
 
 	Page<User> findByShenhestate(String string, Pageable pageable);
 	
+	Page<User> findBySource(String source,Pageable pageable);
+	
 	@Modifying
 	@Query(nativeQuery = true,value = "delete  from dan where phone = ?1")
 	void delete1(String phone);

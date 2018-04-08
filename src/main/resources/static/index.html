@@ -107,9 +107,15 @@ $("#blogin").click(function(){
 		data:{'code':$('#code').val(),'bpassword':$('#bpassword').val()},
 		success:function(data){
 			if(data.state){
-				business = JSON.stringify(data.business);//将json对象转换成json对符串
-				$.session.set('business',business);
-				window.location.href = "/business/index.html";
+				if(data.tiaozhuang == "business"){
+					business = JSON.stringify(data.business);//将json对象转换成json对符串
+					$.session.set('business',business);
+					window.location.href = "/business/index.html";
+				}else if(data.tiaozhuang == "html"){
+					business = JSON.stringify(data.html);//将json对象转换成json对符串
+					$.session.set('html',business);
+					window.location.href = "/new_html/index.html";
+				}
 			}else{
 				alert("账号或密码错误，请重新输入");
 				window.location.href="/index.html";
